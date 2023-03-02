@@ -52,8 +52,7 @@ const AddDiary: React.FC = () => {
         </div>
         <Fab
           className={"fixed right-[16px]"}
-          style={{ bottom: bottomNavBarHeight }}
-          color="primary"
+          style={{ bottom: bottomNavBarHeight, backgroundColor: theme.palette.primary["500"] }}
           onClick={handleNextClick}
         >
           <ArrowRight style={{ color: "white" }} />
