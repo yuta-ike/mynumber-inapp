@@ -21,7 +21,7 @@ const AddDiariesButton: React.FC = () => {
   const size = 45
 
   const actions = [
-    { icon: <Image src={最悪} alt="最悪" width={40} height={40} />, name: "最悪" },
+    { icon: <Image src={最悪} alt="最悪" width={size} height={size} />, name: "最悪" },
     { icon: <Image src={微妙} alt="微妙" width={size} height={size} />, name: "微妙" },
     { icon: <Image src={ふつう} alt="ふつう" width={size} height={size} />, name: "ふつう" },
     { icon: <Image src={いい感じ} alt="いい感じ" width={size} height={size} />, name: "いい感じ" },
