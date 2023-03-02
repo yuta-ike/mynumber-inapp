@@ -1,14 +1,16 @@
 import Link from "next/link"
+import { ThemeProvider } from "@emotion/react"
 
 import BottomNavBar from "@/components/layouts/BottomNavBar"
 import AddDiariesButton from "@/components/layouts/diaries/AddDiariesButton"
 import TopBar from "@/components/layouts/TopBar"
+import { theme } from "@/consts/theme"
 
 import type { NextPage } from "next"
 
 const Index: NextPage = () => {
   return (
-    <>
+    <ThemeProvider theme={theme}>
       <TopBar>
         <h1 className="pl-2 text-[24px]">ホーム</h1>
       </TopBar>
@@ -85,11 +87,11 @@ const Index: NextPage = () => {
         <div className="m-4">
           <p className="text-red-400">Hello, world</p>
         </div>
-        <Link href="/diaries/write">日記を書く</Link>
+        <Link href="/diary/add">日記を書く</Link>
         <AddDiariesButton />
       </main>
       <BottomNavBar />
-    </>
+    </ThemeProvider>
   )
 }
 

@@ -1,5 +1,7 @@
 import { AppBar, Toolbar } from "@mui/material"
 
+import { topBarHeight } from "@/consts/layouts"
+
 export type TopBarProps = {
   children: React.ReactNode
   bgcolor?: string
@@ -9,10 +11,14 @@ export type TopBarProps = {
 const TopBar: React.FC<TopBarProps> = ({ children, bgcolor = "white", color = "black" }) => {
   return (
     <>
-      <AppBar position="fixed" sx={{ top: 0, bgcolor: bgcolor, color: color }} elevation={0}>
-        <Toolbar variant="dense">{children}</Toolbar>
+      <AppBar
+        position="fixed"
+        sx={{ top: 0, bgcolor: bgcolor, color: color, height: topBarHeight }}
+        elevation={0}
+      >
+        <Toolbar>{children}</Toolbar>
       </AppBar>
-      <div style={{ marginTop: "40px" }}></div>
+      <div style={{ marginTop: topBarHeight }}></div>
     </>
   )
 }
