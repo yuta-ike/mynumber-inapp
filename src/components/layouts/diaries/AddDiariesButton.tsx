@@ -21,11 +21,11 @@ const AddDiariesButton: React.FC = () => {
   const size = 45
 
   const actions = [
-    { icon: <Image src={最高} alt="最高" width={size} height={size} />, name: "最高" },
-    { icon: <Image src={いい感じ} alt="いい感じ" width={size} height={size} />, name: "いい感じ" },
-    { icon: <Image src={ふつう} alt="ふつう" width={size} height={size} />, name: "ふつう" },
-    { icon: <Image src={微妙} alt="微妙" width={size} height={size} />, name: "微妙" },
     { icon: <Image src={最悪} alt="最悪" width={40} height={40} />, name: "最悪" },
+    { icon: <Image src={微妙} alt="微妙" width={size} height={size} />, name: "微妙" },
+    { icon: <Image src={ふつう} alt="ふつう" width={size} height={size} />, name: "ふつう" },
+    { icon: <Image src={いい感じ} alt="いい感じ" width={size} height={size} />, name: "いい感じ" },
+    { icon: <Image src={最高} alt="最高" width={size} height={size} />, name: "最高" },
   ]
 
   return (
@@ -45,7 +45,12 @@ const AddDiariesButton: React.FC = () => {
             key={action.name}
             icon={action.icon}
             tooltipTitle={action.name}
-            onClick={() => router.push({ pathname: "/diaries/write", query: action.name })}
+            onClick={() =>
+              router.push(
+                { pathname: "/diaries/write", query: { emote: action.name } },
+                "/diaries/write",
+              )
+            }
           />
         ))}
       </SpeedDial>
