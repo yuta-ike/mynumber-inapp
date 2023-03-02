@@ -48,10 +48,9 @@ cp .env.example .env
 
 .env が作成されるので、編集する
 
-``
+```
 NGROK_AUTHTOKEN=<1で取得したngrokのauthtoken>
 SERVICE_ID=<2で取得したサービスID>
-
 ```
 
 ### 4. 依存関係
