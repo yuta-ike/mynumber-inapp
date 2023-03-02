@@ -85,7 +85,7 @@ const Index: NextPage = () => {
         <div className="m-4">
           <p className="text-red-400">Hello, world</p>
         </div>
-        <Link href="/diaries/write">日記を書く</Link>
+        <Link href="/diary/add">日記を書く</Link>
         <AddDiariesButton />
       </main>
       <BottomNavBar />
