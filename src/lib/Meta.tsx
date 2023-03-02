@@ -49,7 +49,6 @@ const Meta: React.FC<MetaProps> = ({
         </>
       )}
       {disableIndex && <meta name="robots" content="noindex, nofollow" />}
-      <meta name="viewport" content="initial-scale=1.0, width=device-width, viewport-fit=cover" />
       <meta charSet="utf-8" />
       <meta name="theme-color" content="#fafaf9" />
     </>
