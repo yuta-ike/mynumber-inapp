@@ -44,12 +44,11 @@ Slack の資料から取得
 
 ```
 cp .env.example .env
-
 ```
 
 .env が作成されるので、編集する
 
-```
+``
 NGROK_AUTHTOKEN=<1で取得したngrokのauthtoken>
 SERVICE_ID=<2で取得したサービスID>
 
@@ -59,44 +58,32 @@ SERVICE_ID=<2で取得したサービスID>
 
 次のコマンドを実行する
 
-```
-
+```bash
 npm install
-
 ```
 
 ## ポケットサインでデバッグする
 
 ### 1. ローカルホストを立ち上げる
 
-```
-
+```bash
 npm run dev
-
 ```
 
 ### 2. ngrok サーバを立ち上げる
 
-```
-
+```bash
 npm run ngrok
-
 ```
 
 **※Forwarding の URL を控えておく**
 
 ### 3. QR コードを生成する
 
-```
-
+```bash
 npm run qrcode <1 で控えた URL>
-
 ```
 
 ### 4. ポケットサインアプリとの繋ぎ込み
 
 3 を実行すると、ルートディレクトリに QRCODE.png が生成されるので、それをポケットサインアプリで読み込む
-
-```
-
-```
