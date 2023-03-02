@@ -35,7 +35,12 @@ const AddDiariesButton: React.FC = () => {
         ariaLabel="Add diaries button"
         direction="left"
         sx={{ position: "fixed", bottom: 16, right: 16, mb: 10 }}
-        icon={<SpeedDialIcon openIcon={<EditIcon />} />}
+        icon={
+          <SpeedDialIcon
+            openIcon={<EditIcon style={{ color: "white" }} />}
+            style={{ color: "white" }}
+          />
+        }
         onClose={handleClose}
         onOpen={handleOpen}
         open={open}

@@ -2,9 +2,11 @@ import { useRouter } from "next/router"
 import { Cancel, ArrowLeft, ArrowRight } from "iconoir-react"
 import { Fab } from "@mui/material"
 import { SetStateAction, useCallback, useEffect, useRef, useState } from "react"
+import { ThemeProvider } from "@emotion/react"
 
 import TopBar from "@/components/layouts/TopBar"
 import { bottomNavBarHeight } from "@/consts/layouts"
+import { theme } from "@/consts/theme"
 
 const AddDiary: React.FC = () => {
   const router = useRouter()
@@ -29,7 +31,7 @@ const AddDiary: React.FC = () => {
   }, [body, emote, router])
 
   return (
-    <>
+    <ThemeProvider theme={theme}>
       <TopBar>
         <div className="flex w-full items-center justify-between">
           <ArrowLeft onClick={() => router.back()} />
@@ -54,10 +56,10 @@ const AddDiary: React.FC = () => {
           color="primary"
           onClick={handleNextClick}
         >
-          <ArrowRight />
+          <ArrowRight style={{ color: "white" }} />
         </Fab>
       </main>
-    </>
+    </ThemeProvider>
   )
 }
 
