@@ -46,10 +46,7 @@ const AddDiariesButton: React.FC = () => {
             icon={action.icon}
             tooltipTitle={action.name}
             onClick={() =>
-              router.push(
-                { pathname: "/diaries/write", query: { emote: action.name } },
-                "/diaries/write",
-              )
+              router.push({ pathname: "/diary/add", query: { emote: action.name } }, "/diary/add")
             }
           />
         ))}
