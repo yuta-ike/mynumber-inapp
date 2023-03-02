@@ -2,7 +2,7 @@
 
 source ./.env
 
-echo $SERVICE_ID
+echo $NEXT_PUBLIC_POCKET_SIGN_SERVICE_ID
 
 ngrok config add-authtoken $NGROK_AUTHTOKEN
 
