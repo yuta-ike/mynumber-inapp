@@ -28,3 +28,75 @@ Lint / format
 yarn chcek # ESLint and prettier
 yarn fix # ESLint and prettier (auto fix)
 ```
+
+## ポケットサイン環境構築
+
+### 1. ngrok アクセストークンの取得
+
+https://dashboard.ngrok.com/signup
+Your Authentication から authtoken を控えておく。
+
+### 2. サービス ID
+
+Slack の資料から取得
+
+### 3. 1,2 で取得した情報を package.json に追加する
+
+```
+cp .env.example .env
+
+```
+
+.env が作成されるので、編集する
+
+```
+NGROK_AUTHTOKEN=<1で取得したngrokのauthtoken>
+SERVICE_ID=<2で取得したサービスID>
+
+```
+
+### 4. 依存関係
+
+次のコマンドを実行する
+
+```
+
+npm install
+
+```
+
+## ポケットサインでデバッグする
+
+### 1. ローカルホストを立ち上げる
+
+```
+
+npm run dev
+
+```
+
+### 2. ngrok サーバを立ち上げる
+
+```
+
+npm run ngrok
+
+```
+
+**※Forwarding の URL を控えておく**
+
+### 3. QR コードを生成する
+
+```
+
+npm run qrcode <1 で控えた URL>
+
+```
+
+### 4. ポケットサインアプリとの繋ぎ込み
+
+3 を実行すると、ルートディレクトリに QRCODE.png が生成されるので、それをポケットサインアプリで読み込む
+
+```
+
+```

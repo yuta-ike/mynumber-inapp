@@ -16,7 +16,9 @@
     "fix": "run-p lint:fix format:fix type-check",
     "postinstall": "husky install",
     "prepack": "pinst --disable",
-    "postpack": "pinst --enable"
+    "postpack": "pinst --enable",
+    "ngrok": "./bin/ngrok.sh",
+    "qrcode": "./bin/qrcode.sh"
   },
   "dependencies": {
     "@emotion/react": "^11.10.6",
