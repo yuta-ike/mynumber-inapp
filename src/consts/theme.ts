@@ -13,3 +13,5 @@ export const theme: any = createTheme({
     },
   },
 })
+
+export const bgBaseColor = "#fafaf9"
