@@ -40,7 +40,7 @@ Your Authentication から authtoken を控えておく。
 
 Slack の資料から取得
 
-### 3. 1,2 で取得した情報を package.json に追加する
+### 3. 環境変数
 
 ```
 cp .env.example .env
@@ -80,7 +80,7 @@ npm run ngrok
 ### 3. QR コードを生成する
 
 ```bash
-npm run qrcode <1 で控えた URL>
+npm run qrcode <2 で控えた URL>
 ```
 
 ### 4. ポケットサインアプリとの繋ぎ込み
