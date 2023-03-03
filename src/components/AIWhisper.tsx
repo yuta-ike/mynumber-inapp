@@ -10,13 +10,14 @@ export type AIWhisperProps = {
   padding?: string
 }
 
-const AIWhisper: React.FC<AIWhisperProps> = ({ children, underContent }) => {
+const AIWhisper: React.FC<AIWhisperProps> = ({ children, underContent, bgcolor = "#fff" }) => {
   return (
     <div className="rounded-md">
       <div
-        className="flex items-center justify-start rounded-md bg-white p-5 font-bold"
+        className="flex items-center justify-start rounded-md  p-5 font-bold"
         style={{
           color: theme.palette.primary["500"],
+          backgroundColor: bgcolor,
         }}
       >
         <div>

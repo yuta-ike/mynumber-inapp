@@ -30,7 +30,7 @@ const DailyEmotionArea: React.FC<DailyEmotionAreaProps> = ({ calendarData }) => 
     setTimeout(() => {
       const todayIndex = calendarData.findIndex((data) => data.isToday)
       scrollWrapperRef.current?.scrollTo({
-        left: 72 * todayIndex - window.innerWidth / 2.0 + 36,
+        left: 73 * todayIndex - window.innerWidth / 2.0 + 36,
         behavior: "smooth",
       })
     }, 300)
@@ -40,7 +40,10 @@ const DailyEmotionArea: React.FC<DailyEmotionAreaProps> = ({ calendarData }) => 
     <div className="relative mt-4">
       <div className="absolute top-[72px] h-[6px] w-full bg-[#F9B1A4]" />
       <div className="relative w-full">
-        <div className="flex items-center space-x-3 overflow-x-auto px-3" ref={scrollWrapperRef}>
+        <div
+          className="flex items-center space-x-3 overflow-x-auto px-3  pb-3"
+          ref={scrollWrapperRef}
+        >
           {calendarData.map((data) => (
             <div
               key={data.date}
