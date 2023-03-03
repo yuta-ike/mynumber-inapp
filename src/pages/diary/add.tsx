@@ -68,7 +68,7 @@ const AddDiary: React.FC = () => {
         </button>
         <Fab
           type="submit"
-          className="fixed right-4 shadow-none"
+          className="!fixed !right-4 shadow-none"
           style={{ bottom: bottomNavBarHeight, backgroundColor: theme.palette.primary["500"] }}
         >
           <ArrowRight style={{ color: "white", width: 24, height: 24, strokeWidth: 2 }} />
