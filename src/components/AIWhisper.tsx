@@ -11,7 +11,7 @@ export type AIWhisperProps = {
 const AIWhisper: React.FC<AIWhisperProps> = ({ children }) => {
   return (
     <div
-      className="flex items-center justify-start rounded-md bg-white p-5"
+      className="flex items-center justify-start rounded-md bg-white p-5 font-bold"
       style={{
         color: theme.palette.primary["500"],
       }}
