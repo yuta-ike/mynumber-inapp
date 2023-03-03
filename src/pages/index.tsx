@@ -197,7 +197,7 @@ const Index: NextPage = () => {
               </Stack>
             }
           >
-            あなたの日記を元に分析しました。
+            あなたの日記をもとに分析しました。
           </AIWhisperInlineButton>
         </div>
         {/* <div className="relative mt-4">

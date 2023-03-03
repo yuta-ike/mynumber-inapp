@@ -5,6 +5,7 @@ import BottomNavBar from "@/components/layouts/BottomNavBar"
 import TopBar from "@/components/layouts/TopBar"
 import { bgBaseColor } from "@/consts/theme"
 import Municipality from "@/images/municipality.png"
+import { bottomNavBarHeight } from "@/consts/layouts"
 
 const MaterilHandbook: React.FC = () => {
   return (
@@ -12,7 +13,7 @@ const MaterilHandbook: React.FC = () => {
       <TopBar bgcolor={bgBaseColor}>
         <h1 className="pl-2 text-[24px]">母子手帳</h1>
       </TopBar>
-      <main>
+      <main style={{ marginBottom: bottomNavBarHeight }} className="pb-4">
         <div className="relative m-4 h-[140px]">
           <Image
             src={Municipality}
