@@ -101,26 +101,26 @@ const SignUp = () => {
           </div>
 
           <div className="mt-8">
-            <label htmlFor={nicknameId}>子供のニックネームを登録してください</label>
+            <label htmlFor={nicknameId}>赤ちゃんのニックネームを登録してください</label>
             <div className="mt-4 flex w-full overflow-hidden rounded-lg border border-solid border-slate-200 p-[1px] text-base">
               <input
                 type="text"
                 value={childName}
                 onChange={(e) => setChildName(e.target.value)}
                 className="m-0 w-full appearance-none rounded-lg border-none p-4 placeholder:text-slate-200"
-                placeholder="子供のニックネーム"
+                placeholder="赤ちゃんのニックネーム"
               />
             </div>
           </div>
           <div className="mt-8">
-            <label htmlFor={nicknameId}>子供の誕生日を登録してください</label>
+            <label htmlFor={nicknameId}>赤ちゃんの誕生日を登録してください</label>
             <div className="mt-4 flex w-full overflow-hidden rounded-lg border border-solid border-slate-200 bg-white  p-0 text-base">
               <TextField
                 type="date"
                 value={childBirth}
                 onChange={(e) => setChildBirth(e.target.value)}
                 className="m-0 w-full appearance-none rounded-lg border-none p-4 placeholder:text-slate-200"
-                placeholder="子供の誕生日"
+                placeholder="赤ちゃんの誕生日"
                 sx={{ padding: 0 }}
               />
             </div>
