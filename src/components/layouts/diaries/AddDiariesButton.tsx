@@ -2,7 +2,6 @@ import { Backdrop, SpeedDial, SpeedDialAction } from "@mui/material"
 import SpeedDialIcon from "@mui/material/SpeedDialIcon"
 import EditIcon from "@mui/icons-material/Edit"
 import Image from "next/image"
-import { useState } from "react"
 import { useRouter } from "next/router"
 
 import 最高 from "@/images/最高.png"
@@ -12,8 +11,12 @@ import 微妙 from "@/images/微妙.png"
 import 最悪 from "@/images/最悪.png"
 import { emotionId } from "@/consts/emotion"
 
-const AddDiariesButton: React.FC = () => {
-  const [open, setOpen] = useState(false)
+export type AddDiariesButtonProps = {
+  open: boolean
+  setOpen: (open: boolean) => void
+}
+
+const AddDiariesButton: React.FC<AddDiariesButtonProps> = ({ open, setOpen }) => {
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
 

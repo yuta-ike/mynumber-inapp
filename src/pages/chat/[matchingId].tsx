@@ -11,7 +11,6 @@ import { bgBaseColor, theme } from "@/consts/theme"
 import TopBar from "@/components/layouts/TopBar"
 import { usePersonalInfo } from "@/lib/pocketSign/PersonalInfoProvider"
 import AIWhisperSimple from "@/components/AIWhisperSimple"
-
 import Emote1 from "@/images/avatars/emote_1.png"
 
 export function getNowTime(): string {

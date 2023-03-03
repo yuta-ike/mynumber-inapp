@@ -67,7 +67,7 @@ const SignUp = () => {
           <label htmlFor={nicknameId} className="mt-10 block">
             アイコンを選択してください
           </label>
-          <div className="mt-4 flex w-full space-x-4">
+          <div className="-mx-5 mt-4 flex w-[calc(100%+40px)] space-x-1 overflow-x-scroll px-5">
             {ICONS.map((icon, i) => (
               <button
                 type="button"

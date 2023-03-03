@@ -95,6 +95,7 @@ const Index: NextPage = () => {
   const router = useRouter()
   const { data: personalInfo } = usePersonalInfo()
   const [calendar, setCalendar] = useState<Calendar[]>([])
+  const [open, setOpen] = useState(false)
 
   useEffect(() => {
     ;(async () => {
@@ -193,11 +194,11 @@ const Index: NextPage = () => {
         <h1 className="pl-2 text-[24px]">ホーム</h1>
       </TopBar>
       <main style={{ marginBottom: bottomNavBarHeight }} className="pb-4">
-        <div className="pt-2" style={{ backgroundColor: "#FAFAEC" }}>
+        <div className="overflow-hidden rounded-xl pb-4" style={{ backgroundColor: "#FAFAEC" }}>
           <div className="m-4 border-r-[16px]">
             <AIWhisper bgcolor="#F1F1D7">あなたの今日の気分はどうですか？</AIWhisper>
           </div>
-          <DailyEmotionArea calendarData={calendarData} />
+          <DailyEmotionArea calendarData={calendarData} onClickToday={() => setOpen(true)} />
         </div>
         <div className="m-4 mt-8">
           {aiResponse.type === "Waiting" ? (
@@ -310,7 +311,7 @@ const Index: NextPage = () => {
             </div>
           </div>
         </div> */}
-        <AddDiariesButton />
+        <AddDiariesButton open={open} setOpen={setOpen} />
       </main>
       <BottomNavBar />
     </ThemeProvider>
