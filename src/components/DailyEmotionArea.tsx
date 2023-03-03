@@ -1,6 +1,7 @@
-import React, { useEffect, useRef } from "react"
+import React, { useCallback, useEffect, useRef } from "react"
 import Image from "next/image"
 import classNames from "classnames"
+import { useRouter } from "next/router"
 
 import CakeImage from "@/images/cake.png"
 import Emote1 from "@/images/emote_1.png"
@@ -21,6 +22,7 @@ export type DailyEmotionAreaProps = {
 }
 
 const DailyEmotionArea: React.FC<DailyEmotionAreaProps> = ({ calendarData }) => {
+  const router = useRouter()
   const scrollWrapperRef = useRef<HTMLDivElement | null>(null)
   const todayRef = useRef<HTMLDivElement | null>(null)
 
@@ -28,11 +30,18 @@ const DailyEmotionArea: React.FC<DailyEmotionAreaProps> = ({ calendarData }) => 
     setTimeout(() => {
       const todayIndex = calendarData.findIndex((data) => data.isToday)
       scrollWrapperRef.current?.scrollTo({
-        left: 72 * todayIndex - window.innerWidth / 2.0 + 36,
+        left: 73 * todayIndex - window.innerWidth / 2.0 + 36,
         behavior: "smooth",
       })
     }, 300)
   }, [calendarData, calendarData.length])
+
+  const handleClick = useCallback(
+    (date: string) => {
+      router.push({ pathname: `/calendar/${date}` })
+    },
+    [router],
+  )
 
   return (
     <div className="relative mt-4">
@@ -47,6 +56,7 @@ const DailyEmotionArea: React.FC<DailyEmotionAreaProps> = ({ calendarData }) => 
               key={data.date}
               className="flex flex-col items-center pt-3"
               ref={data.isToday ? todayRef : undefined}
+              onClick={() => handleClick(data.date)}
             >
               {data.event != null ? (
                 <>
@@ -69,7 +79,7 @@ const DailyEmotionArea: React.FC<DailyEmotionAreaProps> = ({ calendarData }) => 
                 data.date.slice(8, 10),
                 10,
               )}`}</time>
-              {data.emotion === 0 ? (
+              {data?.emotion == undefined || data?.emotion === 0 ? (
                 <div
                   className={classNames(
                     "roundend-full mt-2 h-[60px] w-[60px] rounded-full bg-[#F5F5F5]",
@@ -79,7 +89,7 @@ const DailyEmotionArea: React.FC<DailyEmotionAreaProps> = ({ calendarData }) => 
               ) : (
                 <Image
                   src={EMOTE_IMAGES[data.emotion - 1]}
-                  alt="最悪"
+                  alt=""
                   className="mt-2 h-[60px] w-[60px] rounded-full"
                 />
               )}
