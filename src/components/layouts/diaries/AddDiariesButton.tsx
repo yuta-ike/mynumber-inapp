@@ -10,6 +10,7 @@ import いい感じ from "@/images/いい感じ.png"
 import ふつう from "@/images/ふつう.png"
 import 微妙 from "@/images/微妙.png"
 import 最悪 from "@/images/最悪.png"
+import { emotionId } from "@/consts/emotion"
 
 const AddDiariesButton: React.FC = () => {
   const [open, setOpen] = useState(false)
@@ -21,11 +22,11 @@ const AddDiariesButton: React.FC = () => {
   const size = 45
 
   const actions = [
-    { icon: <Image src={最悪} alt="最悪" width={size} height={size} />, name: "最悪" },
-    { icon: <Image src={微妙} alt="微妙" width={size} height={size} />, name: "微妙" },
-    { icon: <Image src={ふつう} alt="ふつう" width={size} height={size} />, name: "ふつう" },
-    { icon: <Image src={いい感じ} alt="いい感じ" width={size} height={size} />, name: "いい感じ" },
     { icon: <Image src={最高} alt="最高" width={size} height={size} />, name: "最高" },
+    { icon: <Image src={いい感じ} alt="いい感じ" width={size} height={size} />, name: "いい感じ" },
+    { icon: <Image src={ふつう} alt="ふつう" width={size} height={size} />, name: "ふつう" },
+    { icon: <Image src={微妙} alt="微妙" width={size} height={size} />, name: "微妙" },
+    { icon: <Image src={最悪} alt="最悪" width={size} height={size} />, name: "最悪" },
   ]
 
   return (
@@ -57,7 +58,10 @@ const AddDiariesButton: React.FC = () => {
             icon={action.icon}
             tooltipTitle={action.name}
             onClick={() =>
-              router.push({ pathname: "/diary/add", query: { emote: action.name } }, "/diary/add")
+              router.push(
+                { pathname: "/diary/add", query: { emote: emotionId[action.name] } },
+                "/diary/add",
+              )
             }
           />
         ))}
