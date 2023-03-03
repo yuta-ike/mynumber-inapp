@@ -24,74 +24,91 @@ import { AiResponse } from "@/type/aiResponse"
 import AiLoading from "@/components/AiLoading"
 import { delayed } from "@/utils/delayed"
 import { ICONS } from "@/consts/icons"
+import { Calendar } from "@/types/calendar"
 
 import type { NextPage } from "next"
 
-const calendar = [
-  {
-    date: "2023-03-04",
-    emotion: 5,
-    event: undefined,
-  },
-  {
-    date: "2023-03-03",
-    emotion: 4,
-    event: "birthday",
-  },
-  {
-    date: "2023-03-02",
-    emotion: 2,
-    event: undefined,
-  },
-  {
-    date: "2023-03-01",
-    emotion: 3,
-    event: undefined,
-  },
-  {
-    date: "2023-02-28",
-    emotion: 4,
-    event: undefined,
-  },
-  {
-    date: "2023-02-27",
-    emotion: 1,
-    event: undefined,
-  },
-  {
-    date: "2023-02-26",
-    emotion: 4,
-    event: undefined,
-  },
-  {
-    date: "2023-02-25",
-    emotion: 1,
-    event: undefined,
-  },
-  {
-    date: "2023-02-24",
-    emotion: 4,
-    event: undefined,
-  },
-  {
-    date: "2023-02-23",
-    emotion: 1,
-    event: undefined,
-  },
-  {
-    date: "2023-02-22",
-    emotion: 4,
-    event: undefined,
-  },
-  {
-    date: "2023-02-21",
-    emotion: 1,
-    event: undefined,
-  },
-].reverse()
+// const calendar = [
+//   {
+//     date: "2023-03-04",
+//     emotion: 5,
+//     event: undefined,
+//   },
+//   {
+//     date: "2023-03-03",
+//     emotion: 4,
+//     event: "birthday",
+//   },
+//   {
+//     date: "2023-03-02",
+//     emotion: 2,
+//     event: undefined,
+//   },
+//   {
+//     date: "2023-03-01",
+//     emotion: 3,
+//     event: undefined,
+//   },
+//   {
+//     date: "2023-02-28",
+//     emotion: 4,
+//     event: undefined,
+//   },
+//   {
+//     date: "2023-02-27",
+//     emotion: 1,
+//     event: undefined,
+//   },
+//   {
+//     date: "2023-02-26",
+//     emotion: 4,
+//     event: undefined,
+//   },
+//   {
+//     date: "2023-02-25",
+//     emotion: 1,
+//     event: undefined,
+//   },
+//   {
+//     date: "2023-02-24",
+//     emotion: 4,
+//     event: undefined,
+//   },
+//   {
+//     date: "2023-02-23",
+//     emotion: 1,
+//     event: undefined,
+//   },
+//   {
+//     date: "2023-02-22",
+//     emotion: 4,
+//     event: undefined,
+//   },
+//   {
+//     date: "2023-02-21",
+//     emotion: 1,
+//     event: undefined,
+//   },
+// ].reverse()
 
 const Index: NextPage = () => {
   const router = useRouter()
+  const { data: personalInfo } = usePersonalInfo()
+  const [calendar, setCalendar] = useState<Calendar[]>([])
+
+  useEffect(() => {
+    ;(async () => {
+      const res = await axios.get("calendar", {
+        headers: {
+          Authorization: personalInfo?.subscriptionId,
+        },
+      })
+      console.log(res)
+      // @ts-ignore
+      setCalendar(res.data)
+    })()
+  }, [personalInfo?.subscriptionId])
+
   const calendarData = useMemo(() => {
     const today = new Date()
     const pastArray = Array(10)
@@ -121,9 +138,7 @@ const Index: NextPage = () => {
         }
       })
     return [...pastArray, ...futureArray]
-  }, [])
-
-  const { data: personalInfo } = usePersonalInfo()
+  }, [calendar])
 
   const handleClickUserRecommend = useCallback(() => {
     router.push({ pathname: `/user-recommend` })
