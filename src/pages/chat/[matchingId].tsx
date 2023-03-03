@@ -34,61 +34,64 @@ const Chat: React.FC = () => {
 
   const [chats, setChats] = useState<any[]>([])
   useEffect(() => {
+    // ;(async () => {
+    //   const res = await axios.get(`/chat`)
+    // })()
     setChats([
-      {
-        id: 1,
-        body: "はじめまして。1歳の子供の夜泣きが止まらなくてとても不安です。どうしたらいいですか？",
-        user: {
-          subscriptionId: personalInfo.data?.subscriptionId,
-          name: personalInfo.data?.name,
-        },
-        createdAt: "9:46",
-      },
-      {
-        id: 2,
-        body: "はじめして。ご相談ありがとうございます。私には、6歳の息子がいます。",
-        user: {
-          subscriptionId: 1,
-          name: "石川 沙也加",
-        },
-        createdAt: "10:20",
-      },
-      {
-        id: 3,
-        body: "はじめまして。1歳の子供の夜泣きが止まらなくてとても不安です。どうしたらいいですか？",
-        user: {
-          subscriptionId: personalInfo.data?.subscriptionId,
-          name: personalInfo.data?.name,
-        },
-        createdAt: "10:23",
-      },
-      {
-        id: 4,
-        body: "はじめして。ご相談ありがとうございます。私には、6歳の息子がいます。",
-        user: {
-          subscriptionId: 1,
-          name: "石川 沙也加",
-        },
-        createdAt: "12:12",
-      },
-      {
-        id: 5,
-        body: "はじめまして。1歳の子供の夜泣きが止まらなくてとても不安です。どうしたらいいですか？",
-        user: {
-          subscriptionId: personalInfo.data?.subscriptionId,
-          name: personalInfo.data?.name,
-        },
-        createdAt: "13:20",
-      },
-      {
-        id: 6,
-        body: "はじめして。ご相談ありがとうございます。私には、6歳の息子がいます。",
-        user: {
-          subscriptionId: 1,
-          name: "石川 沙也加",
-        },
-        createdAt: "13:25",
-      },
+      // {
+      //   id: 1,
+      //   body: "はじめまして。1歳の赤ちゃんの夜泣きが止まらなくてとても不安です。どうしたらいいですか？",
+      //   user: {
+      //     subscriptionId: personalInfo.data?.subscriptionId,
+      //     name: personalInfo.data?.name,
+      //   },
+      //   createdAt: "9:46",
+      // },
+      // {
+      //   id: 2,
+      //   body: "はじめして。ご相談ありがとうございます。私には、6歳の息子がいます。",
+      //   user: {
+      //     subscriptionId: 1,
+      //     name: "石川 沙也加",
+      //   },
+      //   createdAt: "10:20",
+      // },
+      // {
+      //   id: 3,
+      //   body: "はじめまして。1歳の赤ちゃんの夜泣きが止まらなくてとても不安です。どうしたらいいですか？",
+      //   user: {
+      //     subscriptionId: personalInfo.data?.subscriptionId,
+      //     name: personalInfo.data?.name,
+      //   },
+      //   createdAt: "10:23",
+      // },
+      // {
+      //   id: 4,
+      //   body: "はじめして。ご相談ありがとうございます。私には、6歳の息子がいます。",
+      //   user: {
+      //     subscriptionId: 1,
+      //     name: "石川 沙也加",
+      //   },
+      //   createdAt: "12:12",
+      // },
+      // {
+      //   id: 5,
+      //   body: "はじめまして。1歳赤ちゃんの夜泣きが止まらなくてとても不安です。どうしたらいいですか？",
+      //   user: {
+      //     subscriptionId: personalInfo.data?.subscriptionId,
+      //     name: personalInfo.data?.name,
+      //   },
+      //   createdAt: "13:20",
+      // },
+      // {
+      //   id: 6,
+      //   body: "はじめして。ご相談ありがとうございます。私には、6歳の息子がいます。",
+      //   user: {
+      //     subscriptionId: 1,
+      //     name: "石川 沙也加",
+      //   },
+      //   createdAt: "13:25",
+      // },
     ])
   }, [personalInfo.data?.name, personalInfo.data?.subscriptionId])
 
@@ -165,13 +168,20 @@ const Chat: React.FC = () => {
         </div>
 
         <Stack
-          className="fixed bottom-0 left-0 right-0 mx-auto w-full px-8 py-2"
+          className="fixed bottom-0 left-0 right-0 mx-auto w-full px-8 py-2 pb-6"
           style={{ backgroundColor: bgBaseColor }}
           direction="row"
           alignItems="center"
           spacing={2}
         >
-          <TextField fullWidth size="small" name="chat" type="text" onChange={handleChange} />
+          <TextField
+            fullWidth
+            size="small"
+            name="chat"
+            value={text}
+            type="text"
+            onChange={handleChange}
+          />
           <IconButton
             style={{ backgroundColor: theme.palette.primary["500"], color: "#fff" }}
             onClick={handleSubmit}

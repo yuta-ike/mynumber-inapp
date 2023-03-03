@@ -260,6 +260,17 @@ const Index: NextPage = () => {
               </CardContent>
             </Card>
           </div>
+          <div>
+            <Card>
+              <CardContent>
+                <Stack>
+                  <div className="text-xl">ヘルスケアと連携</div>
+                  <p>今日は、</p>
+                </Stack>
+              </CardContent>
+            </Card>
+          </div>
+
           {/* <div className="relative mt-4">
   <div className="absolute top-[72px] h-[6px] w-full bg-[#F9B1A4]" />
   <div className="relative w-full overflow-x-scroll">
