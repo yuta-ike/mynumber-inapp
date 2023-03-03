@@ -11,7 +11,8 @@ import { bgBaseColor, theme } from "@/consts/theme"
 import TopBar from "@/components/layouts/TopBar"
 import { usePersonalInfo } from "@/lib/pocketSign/PersonalInfoProvider"
 import AIWhisperSimple from "@/components/AIWhisperSimple"
-import Carrot from "@/images/avatars/carrot.png"
+
+import Emote1 from "@/images/avatars/emote_1.png"
 
 export function getNowTime(): string {
   const now = new Date()
@@ -144,7 +145,7 @@ const Chat: React.FC = () => {
                   spacing={2}
                 >
                   <Avatar className="self-center">
-                    <Image src={Carrot} alt={chat.user.name ?? ""} layout="fill" />
+                    <Image src={Emote1} alt={chat.user.name ?? ""} layout="fill" />
                   </Avatar>
                   <Stack
                     direction={
@@ -154,7 +155,7 @@ const Chat: React.FC = () => {
                     }
                     className="items-center gap-2"
                   >
-                    <div className=" bg-white p-4" style={{ borderRadius: "16px", width: "70%" }}>
+                    <div className="bg-white p-4 " style={{ borderRadius: "16px", width: "70%" }}>
                       {chat.body}
                     </div>
                     <div className="mb-2 self-end text-gray-500">{chat.createdAt}</div>
