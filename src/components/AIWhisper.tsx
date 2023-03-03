@@ -1,4 +1,3 @@
-import { Avatar } from "@mui/material"
 import Image from "next/image"
 
 import AI from "@/images/AI.png"
@@ -21,12 +20,10 @@ const AIWhisper: React.FC<AIWhisperProps> = ({ children, underContent, bgcolor =
           backgroundColor: bgcolor,
         }}
       >
-        <div className="w-[17%]">
-          <Avatar>
-            <Image src={AI} alt="AI" />
-          </Avatar>
+        <div>
+          <Image src={AI} alt="AI" width={40} height={40} />
         </div>
-        <p>{children}</p>
+        <p className="m-0 ml-4">{children}</p>
       </div>
       {underContent && (
         <div
