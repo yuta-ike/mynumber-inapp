@@ -16,9 +16,7 @@ export type DailyEmotionAreaProps = {
     isToday: boolean
     date: string
     emotion: number
-    event?: {
-      name: string
-    }
+    event?: string
   }[]
 }
 
@@ -30,7 +28,7 @@ const DailyEmotionArea: React.FC<DailyEmotionAreaProps> = ({ calendarData }) => 
     setTimeout(() => {
       const todayIndex = calendarData.findIndex((data) => data.isToday)
       scrollWrapperRef.current?.scrollTo({
-        left: 73 * todayIndex - window.innerWidth / 2.0 + 36,
+        left: 72 * todayIndex - window.innerWidth / 2.0 + 36,
         behavior: "smooth",
       })
     }, 300)
