@@ -9,6 +9,7 @@ const Statistics: React.FC = () => {
         <div className="m-4"></div>
       </main>
       <BottomNavBar />
+      <script></script>
     </>
   )
 }

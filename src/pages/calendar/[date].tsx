@@ -53,7 +53,7 @@ const CalendarDate: React.FC = () => {
       </TopBar>
       <main>
         <div className="flex justify-center text-lg font-bold">
-          <Stack direction="row" spacing={2} alignItems="center">
+          <Stack direction="row" spacing={3} alignItems="center">
             <IconButton size="small" onClick={handleClickPrev}>
               <ArrowLeftCircle />
             </IconButton>
@@ -65,32 +65,40 @@ const CalendarDate: React.FC = () => {
         </div>
         <div className="m-4">
           <Stack spacing={2}>
-            {diaries?.map((diary) => (
-              <Card key={diary.id} elevation={0}>
-                <CardContent>
-                  <Stack spacing={2}>
-                    <Stack direction="row" spacing={4}>
-                      <Avatar>{getEmotionImageById(parseInt(diary.emotion.toString()))}</Avatar>
-                      <Stack direction="row" alignItems="center" spacing={2}>
-                        <div className="text-xl font-bold">{emotion[diary.emotion]}</div>
-                        <div className="mb-2 self-end pb-[.3em] text-sm text-gray-500">
-                          {getFormattedTime(diary.created_at)}
-                        </div>
+            {diaries.length > 0 ? (
+              <>
+                {diaries?.map((diary) => (
+                  <Card key={diary.id} elevation={0} sx={{ borderRadius: 8 }}>
+                    <CardContent>
+                      <Stack spacing={2}>
+                        <Stack direction="row" spacing={4}>
+                          <Avatar>{getEmotionImageById(parseInt(diary.emotion.toString()))}</Avatar>
+                          <Stack direction="row" alignItems="center" spacing={2}>
+                            <div className="text-xl font-bold">{emotion[diary.emotion]}</div>
+                            <div className="mb-2 self-end pb-[.3em] text-sm text-gray-500">
+                              {getFormattedTime(diary.created_at)}
+                            </div>
+                          </Stack>
+                        </Stack>
+                        {diary.tags && (
+                          <Stack direction="row">
+                            {/* TODO: タグがうまく表示されない問題 */}
+                            {diary.tags?.map((tag) => (
+                              <Chip key={tag} label={tag} sx={{ m: 0.5 }} />
+                            ))}
+                          </Stack>
+                        )}
+                        <div>{diary.body}</div>
                       </Stack>
-                    </Stack>
-                    {diary.tags && (
-                      <Stack direction="row">
-                        {/* TODO: タグがうまく表示されない問題 */}
-                        {diary.tags?.map((tag) => (
-                          <Chip key={tag} label={tag} sx={{ m: 0.5 }} />
-                        ))}
-                      </Stack>
-                    )}
-                    <div>{diary.body}</div>
-                  </Stack>
-                </CardContent>
-              </Card>
-            ))}
+                    </CardContent>
+                  </Card>
+                ))}
+              </>
+            ) : (
+              <div className="top-[50%] bottom-[50%] flex -translate-y-1/2">
+                みつかりませんでした
+              </div>
+            )}
           </Stack>
         </div>
       </main>
