@@ -1,4 +1,4 @@
-import { Button } from "@mui/material"
+import { Button, TextField } from "@mui/material"
 import React, { useId, useState } from "react"
 import Image from "next/image"
 import classNames from "classnames"
@@ -15,6 +15,8 @@ const SignUp = () => {
   const nicknameId = useId()
   const [input, setInput] = useState("")
   const [iconId, setIconId] = useState<number | null>(null)
+  const [childName, setChildName] = useState<string>("")
+  const [childBirth, setChildBirth] = useState<string>("")
   const { data: personalInfo } = usePersonalInfo()
 
   const handleSignUp = async () => {
@@ -28,6 +30,8 @@ const SignUp = () => {
         nickname: input,
         birthday: personalInfo.birthday.toISOString(),
         address: personalInfo.address,
+        child_name: childName,
+        child_birth: childBirth,
         iconId,
       },
       {
@@ -52,7 +56,9 @@ const SignUp = () => {
             handleSignUp()
           }}
         >
-          <label htmlFor={nicknameId}>ニックネームを登録してください</label>
+          <label htmlFor={nicknameId} className="mt-10 flex items-center gap-2">
+            ニックネームを登録してください<small style={{ color: "red" }}>※</small>
+          </label>
           <div className="mt-4 flex w-full overflow-hidden rounded-lg border border-solid border-slate-200 p-[1px] text-base">
             <input
               id={nicknameId}
@@ -61,11 +67,12 @@ const SignUp = () => {
               onChange={(e) => setInput(e.target.value)}
               className="m-0 w-full appearance-none rounded-lg border-none p-4 placeholder:text-slate-200"
               placeholder="ニックネーム"
+              required
             />
           </div>
 
-          <label htmlFor={nicknameId} className="mt-10 block">
-            アイコンを選択してください
+          <label htmlFor={nicknameId} className="mt-10 flex items-center gap-2">
+            アイコンを選択してください <small style={{ color: "red" }}>※</small>
           </label>
           <div className="scrollbar-hidden -mx-5 mt-4 flex w-[calc(100%+40px)] space-x-1 overflow-x-scroll px-5">
             {ICONS.map((icon, i) => (
@@ -89,6 +96,32 @@ const SignUp = () => {
                 />
               </button>
             ))}
+          </div>
+
+          <div className="mt-8">
+            <label htmlFor={nicknameId}>赤ちゃんのニックネームを登録してください</label>
+            <div className="mt-4 flex w-full overflow-hidden rounded-lg border border-solid border-slate-200 p-[1px] text-base">
+              <input
+                type="text"
+                value={childName}
+                onChange={(e) => setChildName(e.target.value)}
+                className="m-0 w-full appearance-none rounded-lg border-none p-4 placeholder:text-slate-200"
+                placeholder="赤ちゃんのニックネーム"
+              />
+            </div>
+          </div>
+          <div className="mt-8">
+            <label htmlFor={nicknameId}>赤ちゃんの誕生日を登録してください</label>
+            <div className="mt-4 flex w-full overflow-hidden rounded-lg border border-solid border-slate-200 bg-white  p-0 text-base">
+              <TextField
+                type="date"
+                value={childBirth}
+                onChange={(e) => setChildBirth(e.target.value)}
+                className="m-0 w-full appearance-none rounded-lg border-none p-4 placeholder:text-slate-200"
+                placeholder="赤ちゃんの誕生日"
+                sx={{ padding: 0 }}
+              />
+            </div>
           </div>
           <Button
             type="submit"

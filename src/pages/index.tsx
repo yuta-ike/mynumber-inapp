@@ -5,7 +5,7 @@ import format from "date-fns/format"
 import { useCallback, useEffect, useMemo, useState } from "react"
 import { Stack } from "@mui/system"
 import { NavArrowRight } from "iconoir-react"
-import { AvatarGroup, Button } from "@mui/material"
+import { AvatarGroup, Button, Card, CardContent } from "@mui/material"
 import Image from "next/image"
 import { useRouter } from "next/router"
 import { OpenInNew } from "@mui/icons-material"
@@ -264,6 +264,67 @@ const Index: NextPage = () => {
               あなたの日記を元に分析しました。
             </AIWhisperInlineButton>
           ) : null}
+        </div>
+        <div className="space-y-4 p-4">
+          <Card elevation={0}>
+            <CardContent>
+              <h2 className="m-0 mb-4 text-base">じぶんの１週間</h2>
+              <Stack direction="row" style={{ borderRadius: "50%", width: "100%" }}>
+                <div
+                  style={{
+                    width: "65%",
+                    backgroundColor: "#7DAA88",
+                    height: "20px",
+                    borderRadius: "20px 0 0 20px",
+                  }}
+                />
+                <div style={{ width: "20%", height: "20px", backgroundColor: "#9BB0F9" }} />
+                <div
+                  style={{
+                    width: "15%",
+                    backgroundColor: "#F48F82",
+                    height: "20px",
+                    borderRadius: "0 20px 20px 0",
+                  }}
+                />
+              </Stack>
+              <Stack direction="row" className="mt-3" spacing={1}>
+                <Stack direction="row" className="text-sm" alignItems="center" gap={0.5}>
+                  <Stack
+                    style={{
+                      width: " 8px",
+                      height: "8px",
+                      backgroundColor: "#7DAA88",
+                      borderRadius: "999px",
+                    }}
+                  />
+                  スキンシップ
+                </Stack>
+                <Stack direction="row" alignItems="center" className="text-sm" gap={0.5}>
+                  <Stack
+                    style={{
+                      width: "8px",
+                      height: "8px",
+                      backgroundColor: "#9BB0F9",
+                      borderRadius: "999px",
+                    }}
+                  />
+                  夜泣き
+                </Stack>
+                <Stack direction="row" alignItems="center" className="text-sm" gap={0.5}>
+                  <Stack
+                    style={{
+                      width: "8px",
+                      height: "8px",
+                      backgroundColor: "#F48F82",
+                      borderRadius: "999px",
+                    }}
+                  />
+                  成長
+                </Stack>
+              </Stack>
+            </CardContent>
+          </Card>
         </div>
         {/* <div className="relative mt-4">
           <div className="absolute top-[72px] h-[6px] w-full bg-[#F9B1A4]" />
