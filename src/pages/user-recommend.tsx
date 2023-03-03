@@ -184,8 +184,8 @@ const UserRecommend: React.FC = () => {
   }, [])
 
   const handleCounselingClick = useCallback(
-    (matchingId: number) => {
-      router.push({ pathname: `/chat/${matchingId}` })
+    (matchingId: number, tag: string | undefined = undefined) => {
+      router.push({ pathname: `/chat/${matchingId}`, query: { tag: tag } })
     },
     [router],
   )
@@ -211,7 +211,6 @@ const UserRecommend: React.FC = () => {
                   ))}
                 </>
               }
-              bold
             >
               あなたに似た悩みを持った先輩を紹介します。
             </AIWhisper>
@@ -290,7 +289,10 @@ const UserRecommend: React.FC = () => {
                               bgcolor: theme.palette.primary["500"],
                             },
                           }}
-                          onClick={() => handleCounselingClick(user.matchingId)}
+                          // 選択されたタグのうち、初めに出現するものをパラメタとして次のページに渡す
+                          onClick={() =>
+                            handleCounselingClick(user.matchingId, selectedTags[0].tag)
+                          }
                         >
                           相談する
                         </Button>
