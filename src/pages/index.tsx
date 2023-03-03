@@ -2,12 +2,13 @@ import { ThemeProvider } from "@emotion/react"
 import add from "date-fns/add"
 import sub from "date-fns/sub"
 import format from "date-fns/format"
-import { useCallback, useMemo } from "react"
+import { useCallback, useEffect, useMemo, useState } from "react"
 import { Stack } from "@mui/system"
 import { NavArrowRight } from "iconoir-react"
-import { Avatar, AvatarGroup, Button } from "@mui/material"
+import { AvatarGroup, Button } from "@mui/material"
 import Image from "next/image"
 import { useRouter } from "next/router"
+import { OpenInNew } from "@mui/icons-material"
 
 import BottomNavBar from "@/components/layouts/BottomNavBar"
 import AddDiariesButton from "@/components/layouts/diaries/AddDiariesButton"
@@ -15,11 +16,14 @@ import TopBar from "@/components/layouts/TopBar"
 import { theme } from "@/consts/theme"
 import DailyEmotionArea from "@/components/DailyEmotionArea"
 import AIWhisper from "@/components/AIWhisper"
-import Carrot from "@/images/avatars/carrot.png"
-import Sun from "@/images/avatars/sun.png"
-import Flower from "@/images/avatars/flower.png"
 import AIWhisperInlineButton from "@/components/AIWhisperInlineButton"
 import { bottomNavBarHeight } from "@/consts/layouts"
+import axios from "@/lib/axios"
+import { usePersonalInfo } from "@/lib/pocketSign/PersonalInfoProvider"
+import { AiResponse } from "@/type/aiResponse"
+import AiLoading from "@/components/AiLoading"
+import { delayed } from "@/utils/delayed"
+import { ICONS } from "@/consts/icons"
 
 import type { NextPage } from "next"
 
@@ -119,14 +123,54 @@ const Index: NextPage = () => {
     return [...pastArray, ...futureArray]
   }, [])
 
+  const { data: personalInfo } = usePersonalInfo()
+
   const handleClickUserRecommend = useCallback(() => {
     router.push({ pathname: `/user-recommend` })
   }, [router])
 
-  const handleClickMunicipality = useCallback(() => {
-    // target="_blank"と同義
-    window.open("https://www.pref.miyagi.jp/site/kosodate/")
-  }, [])
+  // const handleClickMunicipality = useCallback(() => {
+  //   // target="_blank"と同義
+  //   window.open("https://www.pref.miyagi.jp/site/kosodate/")
+  // }, [])
+
+  const [aiResponse, setAiResponse] = useState<AiResponse>({ type: "Waiting" })
+
+  useEffect(() => {
+    if (personalInfo == null) {
+      return
+    }
+    const init = async () => {
+      const [res, _] = await Promise.all([
+        axios.get<{
+          botResponse:
+            | {
+                userId: string
+                nickname: string
+                iconId: number
+                ageDecades: number
+                postedTags: {
+                  tag: string
+                  count: number
+                }[]
+              }[]
+            | null
+        }>("/bot/home", {
+          headers: {
+            Authorization: personalInfo?.subscriptionId,
+          },
+        }),
+        delayed(1000),
+      ])
+      if (res.data.botResponse == null) {
+        setAiResponse({ type: "NotPosted" })
+      } else {
+        setAiResponse({ type: "UserRecommendation", message: "", users: res.data.botResponse })
+      }
+    }
+
+    init()
+  }, [personalInfo])
 
   return (
     <ThemeProvider theme={theme}>
@@ -141,45 +185,69 @@ const Index: NextPage = () => {
           <DailyEmotionArea calendarData={calendarData} />
         </div>
         <div className="m-4 mt-8">
-          <AIWhisperInlineButton
-            underContent={
-              <Stack spacing={2}>
-                <Stack direction="row" alignItems="center" justifyContent="space-between">
-                  <Button className=" w-full justify-between" onClick={handleClickUserRecommend}>
-                    <Stack justifyContent="space-between">
-                      <p className="my-0 max-w-[97%] text-left font-bold">
-                        最近3人の先輩が同じ悩みを解決しました
-                      </p>
-                      <AvatarGroup max={4} spacing={-10} className="justify-end">
-                        <Avatar>
-                          <Image src={Carrot} alt="" layout="fill" />
-                        </Avatar>
-                        <Avatar>
-                          <Image src={Sun} alt="" layout="fill" />
-                        </Avatar>
-                        <Avatar>
-                          <Image src={Flower} alt="" layout="fill" />
-                        </Avatar>
-                      </AvatarGroup>
+          {aiResponse.type === "Waiting" ? (
+            <AIWhisper>
+              <AiLoading />
+            </AIWhisper>
+          ) : aiResponse.type === "NotPosted" ? (
+            <AIWhisper>今日の日記を投稿してみよう！</AIWhisper>
+          ) : aiResponse.type === "UserRecommendation" ? (
+            <AIWhisperInlineButton
+              underContent={
+                <Stack spacing={2}>
+                  {1 <= aiResponse.users.length && (
+                    <Stack
+                      direction="row"
+                      alignItems="center"
+                      justifyContent="space-between"
+                      className="mb-6"
+                    >
+                      <Button
+                        className="w-full justify-between p-0"
+                        onClick={handleClickUserRecommend}
+                      >
+                        <Stack justifyContent="space-between" className="mr-4 w-full">
+                          <p className="my-0 mb-2 text-left font-bold leading-normal">
+                            最近{aiResponse.users.length}人の先輩が同じ悩みを解決しました
+                          </p>
+                          <AvatarGroup max={4} spacing={-10} className="justify-end text-sm">
+                            {aiResponse.users.map((user) => (
+                              <Image
+                                key={user.userId}
+                                src={ICONS[user.iconId - 1]}
+                                alt=""
+                                width={40}
+                                height={40}
+                              />
+                            ))}
+                          </AvatarGroup>
+                        </Stack>
+                        <NavArrowRight className="shrink-0" />
+                      </Button>
                     </Stack>
-                    <NavArrowRight />
-                  </Button>
-                </Stack>
-                <Stack direction="row" alignItems="center" justifyContent="space-between">
-                  <Button className="w-full justify-between" onClick={handleClickMunicipality}>
-                    <Stack justifyContent="space-between">
-                      <p className="my-0 max-w-[95%] text-left font-bold">
-                        自分の情報があなたの役に立つかもしれません
+                  )}
+                  <Stack direction="row" alignItems="center" justifyContent="space-between">
+                    <div className="flex w-full flex-col p-0">
+                      <p className="my-0 text-left text-sm font-bold leading-normal">
+                        自治体の情報があなたの役にたつかもしれません
                       </p>
-                    </Stack>
-                    <NavArrowRight />
-                  </Button>
+                      <a
+                        target="_blank"
+                        rel="noreferer noopener"
+                        href="https://www.pref.miyagi.jp/site/kosodate/"
+                        className="mt-2 flex items-center justify-between rounded border border-solid border-primary/30 bg-white/80 px-4 py-2 text-sm text-primary no-underline hover:underline active:underline"
+                      >
+                        <span>子育て支援サイト みやぎっこ広場</span>
+                        <OpenInNew className="h-4 w-4 shrink-0" />
+                      </a>
+                    </div>
+                  </Stack>
                 </Stack>
-              </Stack>
-            }
-          >
-            あなたの日記を元に分析しました。
-          </AIWhisperInlineButton>
+              }
+            >
+              あなたの日記を元に分析しました。
+            </AIWhisperInlineButton>
+          ) : null}
         </div>
         {/* <div className="relative mt-4">
           <div className="absolute top-[72px] h-[6px] w-full bg-[#F9B1A4]" />
