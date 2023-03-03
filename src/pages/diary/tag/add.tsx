@@ -49,11 +49,22 @@ const AddDiaryTag: React.FC = () => {
     })
   }, [])
 
-  const handleSubmit = useCallback(() => {
-    // TODO: submit diary
-    console.log(emote, body)
+  const handleSubmit = useCallback(async () => {
+    await axios.post(
+      "/diary",
+      {
+        tags: selectedTags,
+        body: body,
+        emotion: emote && parseInt(emote as string),
+      },
+      {
+        headers: {
+          Authorization: personalInfo?.subscriptionId,
+        },
+      },
+    )
     router.push("/")
-  }, [body, emote, router])
+  }, [body, emote, personalInfo?.subscriptionId, router, selectedTags])
 
   return (
     <ThemeProvider theme={theme}>
