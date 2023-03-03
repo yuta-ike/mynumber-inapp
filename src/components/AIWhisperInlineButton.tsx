@@ -1,4 +1,4 @@
-import { Avatar, Button } from "@mui/material"
+import { Avatar } from "@mui/material"
 import Image from "next/image"
 
 import { theme } from "@/consts/theme"
@@ -10,11 +10,11 @@ export type AIWhisperProps = {
   onClick?: () => void
 }
 
-const AIWhisperButton: React.FC<AIWhisperProps> = ({ children, onClick, underContent }) => {
+const AIWhisperInlineButton: React.FC<AIWhisperProps> = ({ children, onClick, underContent }) => {
   return (
-    <Button
+    <div
       onClick={onClick}
-      className="block w-full rounded-md border border-solid p-5"
+      className="block w-full rounded-md border border-solid p-5 font-bold"
       style={{
         backgroundColor: theme.palette.primary["100"],
         borderColor: theme.palette.primary["500"],
@@ -44,8 +44,8 @@ const AIWhisperButton: React.FC<AIWhisperProps> = ({ children, onClick, underCon
           {underContent}
         </div>
       )}
-    </Button>
+    </div>
   )
 }
 
-export default AIWhisperButton
+export default AIWhisperInlineButton
