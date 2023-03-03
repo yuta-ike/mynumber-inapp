@@ -8,9 +8,12 @@ import TopBar from "@/components/layouts/TopBar"
 import AIWhisper from "@/components/AIWhisper"
 import { bgBaseColor, theme } from "@/consts/theme"
 import { bottomNavBarHeight } from "@/consts/layouts"
+import { usePersonalInfo } from "@/lib/pocketSign/PersonalInfoProvider"
+import axios from "@/lib/axios"
 
 const AddDiaryTag: React.FC = () => {
   const router = useRouter()
+  const personalInfo = usePersonalInfo()
   const { emote, body } = router.query
 
   const [selectedTags, setSelectedTags] = useState<string[]>([])
@@ -34,11 +37,22 @@ const AddDiaryTag: React.FC = () => {
     setSelectedTags((prev) => (prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]))
   }, [])
 
-  const handleSubmit = useCallback(() => {
-    // TODO: submit diary
-    console.log(emote, body)
+  const handleSubmit = useCallback(async () => {
+    await axios.post(
+      "/diary",
+      {
+        tags: selectedTags,
+        body: body,
+        emotion: emote && parseInt(emote as string),
+      },
+      {
+        headers: {
+          Authorization: personalInfo.data?.subscriptionId,
+        },
+      },
+    )
     router.push("/")
-  }, [body, emote, router])
+  }, [body, emote, personalInfo.data?.subscriptionId, router, selectedTags])
 
   return (
     <ThemeProvider theme={theme}>

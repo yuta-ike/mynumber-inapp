@@ -35,7 +35,7 @@ const AddDiary: React.FC = () => {
       <TopBar>
         <div className="flex w-full items-center justify-between px-1">
           <ArrowLeft onClick={() => router.back()} />
-          <h1 className="my-5 text-center text-base font-bold">3/3(土)</h1>
+          <h1 className="my-5 text-center text-lg font-bold">3/3(土)</h1>
           <Cancel onClick={() => router.push("/")} />
         </div>
       </TopBar>
@@ -48,7 +48,7 @@ const AddDiary: React.FC = () => {
       >
         <div style={{ height: "calc(100vh - 56px)" }}>
           <textarea
-            className="block w-full rounded-lg border border-none text-sm text-gray-900 focus:outline-none"
+            className="block w-full rounded-lg border border-none text-base text-gray-900 focus:outline-none"
             style={{ height: "100%" }}
             placeholder="今日はどんなことがありましたか？"
             onChange={handleTextfieldChange}
