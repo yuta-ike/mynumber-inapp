@@ -262,28 +262,32 @@ const Index: NextPage = () => {
             </Card>
           </div>
           <div className="m-6  border-r-[16px]">
-            <Card elevation={0}>
-              <CardContent className="border-none">
-                <Stack direction="row" justifyItems="space-between">
-                  <Stack>
-                    <div className="text-xl">ヘルスケアと連携</div>
-                    <p>連携すると、お得な情報やクーポンを獲得することができます！</p>
+            <a href="https://miya-pass.jp/" target="_blank" className="no-underline">
+              <Card elevation={0}>
+                <CardContent className="border-none">
+                  <Stack direction="row" justifyItems="space-between" alignItems="center">
+                    <Stack>
+                      <div className="w-[95%] text-xl">ヘルスケアと連携</div>
+                      <p>連携すると、お得な情報やクーポンを獲得することができます！</p>
+                    </Stack>
+                    <NavArrowRight />
                   </Stack>
-                  <NavArrowRight />
-                </Stack>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
+            </a>
           </div>
           <div>
             <div className="relative m-6 h-[140px]">
-              <Image
-                src={Municipality}
-                alt="自治体の子育て支援"
-                layout="fill"
-                objectFit="contain"
-                priority
-                placeholder="blur"
-              />
+              <a href="https://miya-pass.jp/" target="_blank">
+                <Image
+                  src={Municipality}
+                  alt="自治体の子育て支援"
+                  layout="fill"
+                  objectFit="contain"
+                  priority
+                  placeholder="blur"
+                />
+              </a>
             </div>
           </div>
 
