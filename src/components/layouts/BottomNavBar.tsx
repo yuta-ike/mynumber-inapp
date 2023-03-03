@@ -4,7 +4,7 @@ import { useRouter } from "next/router"
 import { useState } from "react"
 
 const BottomNavBar: React.FC = () => {
-  const [value, setValue] = useState(0)
+  const [value, setValue] = useState("/")
 
   const router = useRouter()
 
@@ -22,11 +22,11 @@ const BottomNavBar: React.FC = () => {
         pb: 3,
         zIndex: (theme) => theme.zIndex.appBar + 1,
       }}
-      elevation={3}
+      elevation={0}
     >
       <BottomNavigation
         showLabels
-        value={value}
+        value={router.asPath}
         onChange={(event, newValue) => {
           setValue(newValue)
         }}
@@ -46,7 +46,6 @@ const BottomNavBar: React.FC = () => {
           onClick={() => onLink("/statistics")}
           sx={{ gap: 0.5 }}
         />
-
         <BottomNavigationAction
           value="/counseling"
           label="相談"

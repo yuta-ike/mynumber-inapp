@@ -4,10 +4,10 @@ import TopBar from "@/components/layouts/TopBar"
 const Statistics: React.FC = () => {
   return (
     <>
-      <TopBar>記録</TopBar>
-      <main>
-        <div className="m-4"></div>
-      </main>
+      <TopBar>
+        <h1 className="pl-2 text-[24px]">記録</h1>
+      </TopBar>
+      <main className="p-4"></main>
       <BottomNavBar />
     </>
   )
