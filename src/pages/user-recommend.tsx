@@ -1,187 +1,48 @@
 import { ThemeProvider } from "@emotion/react"
 import { useRouter } from "next/router"
 import { Cancel, ArrowLeft } from "iconoir-react"
-import { Avatar, Button, Card, CardContent, Chip, Stack } from "@mui/material"
+import { Button, Card, CardContent, Chip, Stack } from "@mui/material"
 import { useCallback, useEffect, useState } from "react"
 import Image from "next/image"
 
 import { bgBaseColor, theme } from "@/consts/theme"
 import TopBar from "@/components/layouts/TopBar"
-import AIWhisper from "@/components/AIWhisper"
-import Carrot from "@/images/avatars/carrot.png"
 import { bottomNavBarHeight } from "@/consts/layouts"
+import { ICONS } from "@/consts/icons"
+import AIWhisperLight from "@/components/AIWhisperLight"
+import axios from "@/lib/axios"
+import { usePersonalInfo } from "@/lib/pocketSign/PersonalInfoProvider"
 
 const UserRecommend: React.FC = () => {
-  const [tags, setTags] = useState(["習慣", "スキンシップ"])
-
-  const [users, setUsers] = useState([
+  const { data: personalInfo } = usePersonalInfo()
+  const [users, setUsers] = useState<
     {
-      id: 1,
-      name: "ニックネーム",
-      age: 20,
-      postedTags: [
-        {
-          tag: "読書",
-          count: 5,
-        },
-        {
-          tag: "スキンシップ",
-          count: 5,
-        },
-        {
-          tag: "習慣",
-          count: 13,
-        },
-        {
-          tag: "喧嘩",
-          count: 13,
-        },
-        {
-          tag: "産後太り",
-          count: 13,
-        },
-        {
-          tag: "ほげ",
-          count: 13,
-        },
-        {
-          tag: "ふが",
-          count: 13,
-        },
-        {
-          tag: "ダイエット",
-          count: 13,
-        },
-      ],
-      matchingId: 1,
-    },
-    {
-      id: 2,
-      name: "ニックネーム",
-      age: 20,
-      postedTags: [
-        {
-          tag: "読書",
-          count: 5,
-        },
-        {
-          tag: "スキンシップ",
-          count: 5,
-        },
-        {
-          tag: "ダイエット",
-          count: 13,
-        },
-        {
-          tag: "喧嘩",
-          count: 13,
-        },
-        {
-          tag: "産後太り",
-          count: 13,
-        },
-        {
-          tag: "ほげ",
-          count: 13,
-        },
-        {
-          tag: "ふが",
-          count: 13,
-        },
-        {
-          tag: "ダイエット",
-          count: 13,
-        },
-      ],
-      matchingId: 2,
-    },
-    {
-      id: 3,
-      name: "ニックネーム",
-      age: 20,
-      postedTags: [
-        {
-          tag: "読書",
-          count: 5,
-        },
-        {
-          tag: "スキンシップ",
-          count: 5,
-        },
-        {
-          tag: "ダイエット",
-          count: 13,
-        },
-        {
-          tag: "喧嘩",
-          count: 13,
-        },
-        {
-          tag: "産後太り",
-          count: 13,
-        },
-        {
-          tag: "ほげ",
-          count: 13,
-        },
-        {
-          tag: "ふが",
-          count: 13,
-        },
-        {
-          tag: "ダイエット",
-          count: 13,
-        },
-      ],
-      matchingId: 3,
-    },
-    {
-      id: 4,
-      name: "ニックネーム",
-      age: 20,
-      postedTags: [
-        {
-          tag: "読書",
-          count: 5,
-        },
-        {
-          tag: "スキンシップ",
-          count: 5,
-        },
-        {
-          tag: "ダイエット",
-          count: 13,
-        },
-        {
-          tag: "喧嘩",
-          count: 13,
-        },
-        {
-          tag: "産後太り",
-          count: 13,
-        },
-        {
-          tag: "ほげ",
-          count: 13,
-        },
-        {
-          tag: "ふが",
-          count: 13,
-        },
-        {
-          tag: "ダイエット",
-          count: 13,
-        },
-      ],
-      matchingId: 4,
-    },
-  ])
-
-  const router = useRouter()
+      userId: string
+      nickname: string
+      iconId: number
+      ageDecades: number
+      postedTags: {
+        tag: string
+        count: number
+      }[]
+    }[]
+  >()
 
   useEffect(() => {
-    const userRecommend = {}
-  }, [])
+    const init = async () => {
+      const res = await axios.get("/user-recommend", {
+        headers: {
+          Authorization: personalInfo?.subscriptionId,
+        },
+      })
+      setUsers(res.data.users)
+    }
+    init()
+  }, [personalInfo?.subscriptionId, setUsers])
+
+  const [tags, setTags] = useState(["習慣", "スキンシップ"])
+
+  const router = useRouter()
 
   const handleCounselingClick = useCallback(
     (matchingId: number, tag: string | undefined = undefined) => {
@@ -202,19 +63,18 @@ const UserRecommend: React.FC = () => {
       <main>
         <div className="m-4">
           <Stack spacing={2}>
-            <AIWhisper
-              underContent={
-                <>
-                  <div className="mb-1 text-sm text-gray-900">あなたの選んだタグ</div>
+            <div className="rounded-xl bg-white">
+              <AIWhisperLight>あなたに似た悩みを持った先輩を紹介します</AIWhisperLight>
+              <div className="mx-5 border-t border-solid border-transparent border-t-primary py-5">
+                <h3 className="m-0 text-sm font-normal text-[#212121]">あなたの選んだタグ</h3>
+                <div className="mt-2 flex items-center">
                   {tags.map((tag) => (
-                    <Chip key={tag} label={tag} sx={{ m: 0.5 }} />
+                    <Chip key={tag} label={tag} sx={{ mr: 1, py: 1 }} />
                   ))}
-                </>
-              }
-            >
-              あなたに似た悩みを持った先輩を紹介します。
-            </AIWhisper>
-            {users.map((user) => {
+                </div>
+              </div>
+            </div>
+            {users?.map((user) => {
               // 選択されたタグと同じタグの情報が格納される
               const selectedTags: { count: number; tag: string }[] = []
               // 上記以外のタグが格納される
@@ -228,16 +88,14 @@ const UserRecommend: React.FC = () => {
               })
 
               return (
-                <Card key={user.id} elevation={0}>
+                <Card key={user.userId} elevation={0} sx={{ borderRadius: "16px" }}>
                   <CardContent>
                     <Stack spacing={2}>
                       <Stack direction="row" alignItems="center" spacing={2}>
-                        <Avatar>
-                          <Image src={Carrot} alt={user.name} layout="fill" />
-                        </Avatar>
+                        <Image src={ICONS[user.iconId]} alt="" width={40} height={40} />
                         <Stack>
-                          <div className="text-lg font-bold">{user.name}</div>
-                          <div>{user.age}代</div>
+                          <div className="font-bold">{user.nickname}</div>
+                          <div className="text-sm font-bold">{user.ageDecades}0代</div>
                         </Stack>
                       </Stack>
                       <div>
@@ -246,24 +104,24 @@ const UserRecommend: React.FC = () => {
                           <Chip
                             key={selectedTag.tag}
                             label={
-                              <span className="inline-flex items-center gap-2">
+                              <span className="inline-flex items-center gap-2 font-bold">
                                 <span>{selectedTag.tag}</span>
                                 <span className="text-[1.1em] font-semibold">
                                   {selectedTag.count}
                                 </span>
                               </span>
                             }
-                            sx={{ m: 0.5 }}
-                          ></Chip>
+                            sx={{ mr: 1 }}
+                          />
                         ))}
                       </div>
-                      <div>
+                      <div className="flex flex-wrap">
                         {/* その他のタグを表示する */}
-                        <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+                        <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
                           {unselectedTags.map((unselectedTag) => (
-                            <div key={unselectedTag.tag} className="flex items-center gap-2">
-                              <div>{unselectedTag.tag}</div>
-                              <div className="m-0.5 flex h-[23px] w-[23px]  items-center justify-center rounded-full bg-gray-300 p-1 text-sm">
+                            <div key={unselectedTag.tag} className="flex items-center gap-[6px]">
+                              <div className="text-sm">{unselectedTag.tag}</div>
+                              <div className="m-0.5 flex h-[23px] w-[23px]  items-center justify-center rounded-full bg-[#EBEBEB] p-1 text-xs font-bold text-gray-600">
                                 {unselectedTag.count}
                               </div>
                             </div>
@@ -273,7 +131,7 @@ const UserRecommend: React.FC = () => {
                       <div
                         style={{
                           bottom: bottomNavBarHeight,
-                          margin: "20px 40px 0",
+                          marginTop: "20px",
                           display: "flex",
                           justifyContent: "center",
                         }}
@@ -284,15 +142,16 @@ const UserRecommend: React.FC = () => {
                             bgcolor: theme.palette.primary["500"],
                             fontWeight: "bold",
                             py: 1.25,
-                            width: "80%",
+                            width: "100%",
                             "&:hover": {
                               bgcolor: theme.palette.primary["500"],
                             },
                           }}
+                          className="rounded-lg"
                           // 選択されたタグのうち、初めに出現するものをパラメタとして次のページに渡す
-                          onClick={() =>
-                            handleCounselingClick(user.matchingId, selectedTags[0].tag)
-                          }
+                          onClick={() => {
+                            // handleCounselingClick(user.matchingId, selectedTags[0].tag)
+                          }}
                         >
                           相談する
                         </Button>
