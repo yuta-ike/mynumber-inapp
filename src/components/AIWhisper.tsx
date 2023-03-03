@@ -17,7 +17,7 @@ const AIWhisper: React.FC<AIWhisperProps> = ({
   padding,
 }) => {
   return (
-    <div className="rounded-md">
+    <div className="rounded-xl">
       <div
         className="flex items-center justify-start rounded-md font-bold"
         style={{
