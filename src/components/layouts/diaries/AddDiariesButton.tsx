@@ -30,11 +30,17 @@ const AddDiariesButton: React.FC = () => {
 
   return (
     <>
-      <Backdrop open={open} />
+      <Backdrop open={open} sx={{ zIndex: (theme) => theme.zIndex.appBar + 1 }} />
       <SpeedDial
         ariaLabel="Add diaries button"
         direction="left"
-        sx={{ position: "fixed", bottom: 16, right: 16, mb: 10 }}
+        sx={{
+          position: "fixed",
+          bottom: 16,
+          right: 16,
+          mb: 10,
+          zIndex: (theme) => theme.zIndex.drawer + 1,
+        }}
         icon={
           <SpeedDialIcon
             openIcon={<EditIcon style={{ color: "white" }} />}
