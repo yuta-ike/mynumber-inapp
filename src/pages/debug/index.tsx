@@ -1,4 +1,5 @@
 import React from "react"
+import Link from "next/link"
 
 import { usePersonalInfo } from "@/lib/pocketSign/PersonalInfoProvider"
 
@@ -39,6 +40,7 @@ const Debug = () => {
           </dl>
         </>
       )}
+      <Link href="/">戻る</Link>
     </div>
   )
 }

@@ -107,52 +107,6 @@ const Index: NextPage = () => {
       </TopBar>
       <main>
         <DailyEmotionArea calendarData={calendarData} />
-        {/* <div className="relative mt-4">
-          <div className="absolute top-[72px] h-[6px] w-full bg-[#F9B1A4]" />
-          <div className="relative w-full overflow-x-scroll">
-            <div className="flex items-center px-4 space-x-3">
-              {calendarData.map((data) => (
-                <div key={data.date} className="flex flex-col items-center pt-3">
-                  {data.event != null ? (
-                    <>
-                      <Image
-                        src={CakeImage}
-                        alt="誕生日"
-                        className="h-10 w-10 rounded-full bg-[#9BB0F9]"
-                      />
-                      <div className="h-[20px] w-[2px] bg-[#F9B1A4]" />
-                    </>
-                  ) : (
-                    <div className="h-[60px] w-10" />
-                  )}
-                  <time
-                    className={classNames(
-                      "mt-[16px] grid place-items-center rounded-full px-2 py-0.5 text-sm font-bold leading-normal",
-                      data.isToday ? "bg-primary text-white" : "text-base-black",
-                    )}
-                  >{`${parseInt(data.date.slice(5, 7), 10)}/${parseInt(
-                    data.date.slice(8, 10),
-                    10,
-                  )}`}</time>
-                  {data.emotion === 0 ? (
-                    <div
-                      className={classNames(
-                        "roundend-full mt-2 h-[60px] w-[60px] rounded-full bg-[#F5F5F5]",
-                        data.isToday ? "border border-dashed border-primary" : "",
-                      )}
-                    />
-                  ) : (
-                    <Image
-                      src={EMOTE_IMAGES[data.emotion - 1]}
-                      alt="最悪"
-                      className="mt-2 h-[60px] w-[60px] rounded-full"
-                    />
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
-        </div> */}
         <Link href="/diary/add">日記を書く</Link>
         <AddDiariesButton />
       </main>
