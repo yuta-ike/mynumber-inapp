@@ -1,7 +1,8 @@
 import { Cancel, ArrowLeft } from "iconoir-react"
 import { useRouter } from "next/router"
-import { useCallback } from "react"
+import { useCallback, useState } from "react"
 import { Button, Chip, ThemeProvider } from "@mui/material"
+import classNames from "classnames"
 
 import TopBar from "@/components/layouts/TopBar"
 import AIWhisper from "@/components/AIWhisper"
@@ -12,29 +13,32 @@ const AddDiaryTag: React.FC = () => {
   const router = useRouter()
   const { emote, body } = router.query
 
+  const [selectedTags, setSelectedTags] = useState<string[]>([])
+
   const tags = [
     "タグ1",
-    "タグ2",
-    "タグ3",
-    "タグ4",
-    "タグ1",
-    "タグ2",
-    "タグ3",
-    "タグ4",
-    "タグ1",
-    "タグ2",
-    "タグ3",
-    "タグ4",
+    "タグ22",
+    "タグ3333",
+    "タグ44444",
+    "タグ111111",
+    "タグ2222222",
+    "タグ33333333",
+    "タグA",
+    "タグB",
+    "タグCC",
+    "タグDDD",
+    "タグEEEE",
   ]
 
-  const handleTagClick = useCallback((tag) => {
-    console.log(tag)
+  const handleTagClick = useCallback((tag: string) => {
+    setSelectedTags((prev) => (prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]))
   }, [])
 
   const handleSubmit = useCallback(() => {
     // TODO: submit diary
     console.log(emote, body)
-  }, [body, emote])
+    router.push("/")
+  }, [body, emote, router])
 
   return (
     <ThemeProvider theme={theme}>
@@ -49,9 +53,15 @@ const AddDiaryTag: React.FC = () => {
         <div className="p-4">
           <AIWhisper>あなたの悩み事はどれですか？</AIWhisper>
         </div>
-        <div className="p-4">
+        <div className="flex flex-wrap justify-center p-4">
           {tags?.map((tag) => (
-            <Chip key={tag} label={tag} onClick={() => handleTagClick(tag)} sx={{ m: 0.5 }} />
+            <Chip
+              key={tag}
+              label={tag}
+              onClick={() => handleTagClick(tag)}
+              sx={{ m: 0.5 }}
+              className={classNames(selectedTags.includes(tag) ? "!bg-primary text-white" : "")}
+            />
           ))}
         </div>
         <div
@@ -74,6 +84,7 @@ const AddDiaryTag: React.FC = () => {
               "&:hover": {
                 bgcolor: theme.palette.primary["500"],
               },
+              borderRadius: "8px",
             }}
             fullWidth
             onClick={handleSubmit}

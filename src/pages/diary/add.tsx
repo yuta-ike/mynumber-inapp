@@ -1,5 +1,5 @@
 import { useRouter } from "next/router"
-import { Cancel, ArrowLeft, ArrowRight } from "iconoir-react"
+import { Cancel, ArrowLeft, ArrowRight, Camera } from "iconoir-react"
 import { Fab } from "@mui/material"
 import { SetStateAction, useCallback, useEffect, useRef, useState } from "react"
 import { ThemeProvider } from "@emotion/react"
@@ -27,37 +27,50 @@ const AddDiary: React.FC = () => {
   }, [])
 
   const handleNextClick = useCallback(() => {
-    router.push({ pathname: "/diary/tag/add", query: { emote: emote, body: body } })
+    router.push({ pathname: "/diary/tag/add", query: { emote, body } })
   }, [body, emote, router])
 
   return (
     <ThemeProvider theme={theme}>
       <TopBar>
-        <div className="flex w-full items-center justify-between">
+        <div className="flex w-full items-center justify-between px-1">
           <ArrowLeft onClick={() => router.back()} />
-          <h1 className="text-center text-base font-bold">3/3(土)</h1>
+          <h1 className="my-5 text-center text-base font-bold">3/3(土)</h1>
           <Cancel onClick={() => router.push("/")} />
         </div>
       </TopBar>
-      <main>
+      <form
+        className="bg-white px-5"
+        onSubmit={(e) => {
+          e.preventDefault()
+          handleNextClick()
+        }}
+      >
         <div style={{ height: "calc(100vh - 56px)" }}>
           <textarea
-            className="block w-full rounded-lg border border-none bg-white p-2.5 text-gray-900 focus:outline-none"
+            className="block w-full rounded-lg border border-none text-sm text-gray-900 focus:outline-none"
             style={{ height: "100%" }}
             placeholder="今日はどんなことがありましたか？"
-            // autoFocus
             onChange={handleTextfieldChange}
             ref={inputElement}
           />
         </div>
-        <Fab
-          className={"fixed right-[16px]"}
-          style={{ bottom: bottomNavBarHeight, backgroundColor: theme.palette.primary["500"] }}
-          onClick={handleNextClick}
+        <button
+          type="button"
+          className="fixed left-4 appearance-none rounded border-none bg-[#E0E0E0] p-3"
+          style={{ bottom: bottomNavBarHeight }}
+          onClick={() => window.alert("現在サポートされていません")}
         >
-          <ArrowRight style={{ color: "white" }} />
+          <Camera className="fill-white text-[#E0E0E0]" />
+        </button>
+        <Fab
+          type="submit"
+          className="fixed right-4 shadow-none"
+          style={{ bottom: bottomNavBarHeight, backgroundColor: theme.palette.primary["500"] }}
+        >
+          <ArrowRight style={{ color: "white", width: 24, height: 24, strokeWidth: 2 }} />
         </Fab>
-      </main>
+      </form>
     </ThemeProvider>
   )
 }

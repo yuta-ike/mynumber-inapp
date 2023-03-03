@@ -27,6 +27,7 @@
     "@mui/material": "^5.11.11",
     "@pocketsign/in-app-service-sdk": "file:pocketsign-in-app-service-sdk-0.2.0.tgz",
     "classnames": "^2.3.2",
+    "date-fns": "^2.29.3",
     "iconoir-react": "^6.3.0",
     "next": "13.2.3",
     "react": "18.2.0",
