@@ -10,6 +10,7 @@ import { bgBaseColor, theme } from "@/consts/theme"
 import { bottomNavBarHeight } from "@/consts/layouts"
 import { usePersonalInfo } from "@/lib/pocketSign/PersonalInfoProvider"
 import axios from "@/lib/axios"
+import { dateStringToJapaneseFormat } from "@/lib/date/dateStringToJapaneseFormat"
 
 const AddDiaryTag: React.FC = () => {
   const router = useRouter()
@@ -38,6 +39,7 @@ const AddDiaryTag: React.FC = () => {
   }, [])
 
   const handleSubmit = useCallback(async () => {
+    console.log(emote && parseInt(emote as string))
     await axios.post(
       "/diary",
       {
@@ -59,7 +61,9 @@ const AddDiaryTag: React.FC = () => {
       <TopBar bgcolor={bgBaseColor}>
         <div className="flex w-full items-center justify-between">
           <ArrowLeft onClick={() => router.back()} />
-          <h1 className="text-center text-base font-bold">3/3(土)</h1>
+          <h1 className="text-center text-lg font-bold">
+            {dateStringToJapaneseFormat(Date.now())}
+          </h1>
           <Cancel onClick={() => router.push("/")} />
         </div>
       </TopBar>
