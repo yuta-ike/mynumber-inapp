@@ -1,6 +1,6 @@
 import { Cancel, ArrowLeft } from "iconoir-react"
 import { useRouter } from "next/router"
-import { useCallback, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { Button, Chip, ThemeProvider } from "@mui/material"
 import classNames from "classnames"
 
@@ -8,30 +8,45 @@ import TopBar from "@/components/layouts/TopBar"
 import AIWhisper from "@/components/AIWhisper"
 import { bgBaseColor, theme } from "@/consts/theme"
 import { bottomNavBarHeight } from "@/consts/layouts"
+import { usePersonalInfo } from "@/lib/pocketSign/PersonalInfoProvider"
+import axios from "@/lib/axios"
+import { delayed } from "@/utils/delayed"
+import AiLoading from "@/components/AiLoading"
 
 const AddDiaryTag: React.FC = () => {
+  const { data: personalInfo } = usePersonalInfo()
   const router = useRouter()
   const { emote, body } = router.query
-
+  const [tags, setTags] = useState<string[] | null>(null)
   const [selectedTags, setSelectedTags] = useState<string[]>([])
 
-  const tags = [
-    "タグ1",
-    "タグ22",
-    "タグ3333",
-    "タグ44444",
-    "タグ111111",
-    "タグ2222222",
-    "タグ33333333",
-    "タグA",
-    "タグB",
-    "タグCC",
-    "タグDDD",
-    "タグEEEE",
-  ]
+  useEffect(() => {
+    if (personalInfo == null) {
+      window.alert("エラーが発生しました")
+      return
+    }
+    const init = async () => {
+      const [res] = await Promise.all([
+        axios.post(
+          "/suggest-tags",
+          { sentence: body },
+          {
+            headers: {
+              Authorization: personalInfo?.subscriptionId,
+            },
+          },
+        ),
+        delayed(3000),
+      ])
+      setTags(res.data)
+    }
+    init()
+  }, [body, personalInfo])
 
   const handleTagClick = useCallback((tag: string) => {
-    setSelectedTags((prev) => (prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]))
+    setSelectedTags((prev) => {
+      return prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]
+    })
   }, [])
 
   const handleSubmit = useCallback(() => {
@@ -51,7 +66,9 @@ const AddDiaryTag: React.FC = () => {
       </TopBar>
       <main className="relative">
         <div className="p-4">
-          <AIWhisper>あなたの悩み事はどれですか？</AIWhisper>
+          <AIWhisper>
+            {tags == null ? <AiLoading className="ml-4" /> : "あなたの悩み事はどれですか？"}
+          </AIWhisper>
         </div>
         <div className="flex flex-wrap justify-center p-4">
           {tags?.map((tag) => (
@@ -60,7 +77,10 @@ const AddDiaryTag: React.FC = () => {
               label={tag}
               onClick={() => handleTagClick(tag)}
               sx={{ m: 0.5 }}
-              className={classNames(selectedTags.includes(tag) ? "!bg-primary text-white" : "")}
+              className={classNames(
+                "font-bold",
+                selectedTags?.includes(tag) && "!bg-primary !text-white",
+              )}
             />
           ))}
         </div>
@@ -88,6 +108,7 @@ const AddDiaryTag: React.FC = () => {
             }}
             fullWidth
             onClick={handleSubmit}
+            disabled={tags == null}
           >
             決定する
           </Button>
