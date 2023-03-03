@@ -9,6 +9,15 @@ module.exports = {
           black: "#212121",
         },
       },
+      animation: {
+        thinking: "thinking 1s ease-in-out infinite",
+      },
+      keyframes: {
+        thinking: {
+          "0%, 100%": { transform: "translateY(30%)" },
+          "50%": { transform: "translateY(-30%)" },
+        },
+      },
     },
   },
   corePlugins: {
