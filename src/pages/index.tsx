@@ -146,7 +146,9 @@ const Index: NextPage = () => {
                 <Stack direction="row" alignItems="center" justifyContent="space-between">
                   <Button className=" w-full justify-between" onClick={handleClickUserRecommend}>
                     <Stack justifyContent="space-between">
-                      <p className="my-0 font-bold">最近3人の先輩が同じ悩みを解決しました</p>
+                      <p className="my-0 max-w-[97%] text-left font-bold">
+                        最近3人の先輩が同じ悩みを解決しました
+                      </p>
                       <AvatarGroup max={4} spacing={-10} className="justify-end">
                         <Avatar>
                           <Image src={Carrot} alt="" layout="fill" />
@@ -165,7 +167,9 @@ const Index: NextPage = () => {
                 <Stack direction="row" alignItems="center" justifyContent="space-between">
                   <Button className="w-full justify-between" onClick={handleClickMunicipality}>
                     <Stack justifyContent="space-between">
-                      <p className="my-0 font-bold">自分の情報があなたの役に立つかもしれません</p>
+                      <p className="my-0 max-w-[95%] text-left font-bold">
+                        自分の情報があなたの役に立つかもしれません
+                      </p>
                     </Stack>
                     <NavArrowRight />
                   </Button>
