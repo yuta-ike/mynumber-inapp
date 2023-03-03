@@ -19,6 +19,7 @@ import Carrot from "@/images/avatars/carrot.png"
 import Sun from "@/images/avatars/sun.png"
 import Flower from "@/images/avatars/flower.png"
 import AIWhisperInlineButton from "@/components/AIWhisperInlineButton"
+import { bottomNavBarHeight } from "@/consts/layouts"
 
 import type { NextPage } from "next"
 
@@ -132,7 +133,7 @@ const Index: NextPage = () => {
       <TopBar>
         <h1 className="pl-2 text-[24px]">ホーム</h1>
       </TopBar>
-      <main>
+      <main style={{ marginBottom: bottomNavBarHeight }} className="pb-4">
         <div className="pt-2" style={{ backgroundColor: "#FAFAEC" }}>
           <div className="m-4 border-r-[16px]">
             <AIWhisper bgcolor="#F1F1D7">あなたの今日の気分はどうですか？</AIWhisper>
