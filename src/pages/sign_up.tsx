@@ -55,7 +55,7 @@ const SignUp = () => {
         }}
       >
         <label htmlFor={nicknameId}>ニックネームを登録してください</label>
-        <div className="mt-4 flex w-full overflow-hidden rounded-lg border border-solid border-slate-200 p-[1px] text-sm">
+        <div className="mt-4 flex w-full overflow-hidden rounded-lg border border-solid border-slate-200 p-[1px] text-base">
           <input
             id={nicknameId}
             type="text"
