@@ -23,6 +23,7 @@ import { bottomNavBarHeight } from "@/consts/layouts"
 import axios from "@/lib/axios"
 import { usePersonalInfo } from "@/lib/pocketSign/PersonalInfoProvider"
 import { Calendar } from "@/types/calendar"
+import Municipality from "@/images/municipality.png"
 
 import type { NextPage } from "next"
 
@@ -201,7 +202,7 @@ const Index: NextPage = () => {
               あなたの日記をもとに分析しました。
             </AIWhisperInlineButton>
           </div>
-          <div>
+          <div className="m-6 border-r-[16px]">
             <Card elevation={0}>
               <CardContent>
                 <h2>じぶんの１週間</h2>
@@ -260,15 +261,30 @@ const Index: NextPage = () => {
               </CardContent>
             </Card>
           </div>
-          <div>
-            <Card>
-              <CardContent>
-                <Stack>
-                  <div className="text-xl">ヘルスケアと連携</div>
-                  <p>今日は、</p>
+          <div className="m-6  border-r-[16px]">
+            <Card elevation={0}>
+              <CardContent className="border-none">
+                <Stack direction="row" justifyItems="space-between">
+                  <Stack>
+                    <div className="text-xl">ヘルスケアと連携</div>
+                    <p>連携すると、お得な情報やクーポンを獲得することができます！</p>
+                  </Stack>
+                  <NavArrowRight />
                 </Stack>
               </CardContent>
             </Card>
+          </div>
+          <div>
+            <div className="relative m-6 h-[140px]">
+              <Image
+                src={Municipality}
+                alt="自治体の子育て支援"
+                layout="fill"
+                objectFit="contain"
+                priority
+                placeholder="blur"
+              />
+            </div>
           </div>
 
           {/* <div className="relative mt-4">
