@@ -13,6 +13,8 @@ import AIWhisperLight from "@/components/AIWhisperLight"
 import axios from "@/lib/axios"
 import { usePersonalInfo } from "@/lib/pocketSign/PersonalInfoProvider"
 
+const TAG_COLORS = ["#7EAA81", "#9BB0F9", "#c09f6b", "#d79dd9"]
+
 const UserRecommend: React.FC = () => {
   const { data: personalInfo } = usePersonalInfo()
   const [users, setUsers] = useState<
@@ -28,6 +30,8 @@ const UserRecommend: React.FC = () => {
     }[]
   >()
 
+  const [tags, setTags] = useState<string[]>([])
+
   useEffect(() => {
     const init = async () => {
       const res = await axios.get("/user-recommend", {
@@ -36,11 +40,10 @@ const UserRecommend: React.FC = () => {
         },
       })
       setUsers(res.data.users)
+      setTags(res.data.tags)
     }
     init()
   }, [personalInfo?.subscriptionId, setUsers])
-
-  const [tags, setTags] = useState(["習慣", "スキンシップ"])
 
   const router = useRouter()
 
@@ -68,8 +71,17 @@ const UserRecommend: React.FC = () => {
               <div className="mx-5 border-t border-solid border-transparent border-t-primary py-5">
                 <h3 className="m-0 text-sm font-normal text-[#212121]">あなたの選んだタグ</h3>
                 <div className="mt-2 flex items-center">
-                  {tags.map((tag) => (
-                    <Chip key={tag} label={tag} sx={{ mr: 1, py: 1 }} />
+                  {tags.map((tag, i) => (
+                    <Chip
+                      key={tag}
+                      label={tag}
+                      sx={{
+                        mr: 1,
+                        py: 1,
+                        bgcolor: TAG_COLORS[i % TAG_COLORS.length],
+                        fontWeight: "700",
+                      }}
+                    />
                   ))}
                 </div>
               </div>
@@ -79,6 +91,7 @@ const UserRecommend: React.FC = () => {
               const selectedTags: { count: number; tag: string }[] = []
               // 上記以外のタグが格納される
               const unselectedTags: { count: number; tag: string }[] = []
+
               user.postedTags?.forEach((postedTag) => {
                 if (tags?.includes(postedTag.tag)) {
                   selectedTags.push(postedTag)
@@ -92,7 +105,7 @@ const UserRecommend: React.FC = () => {
                   <CardContent>
                     <Stack spacing={2}>
                       <Stack direction="row" alignItems="center" spacing={2}>
-                        <Image src={ICONS[user.iconId]} alt="" width={40} height={40} />
+                        <Image src={ICONS[user.iconId - 1]} alt="" width={40} height={40} />
                         <Stack>
                           <div className="font-bold">{user.nickname}</div>
                           <div className="text-sm font-bold">{user.ageDecades}0代</div>
@@ -100,32 +113,39 @@ const UserRecommend: React.FC = () => {
                       </Stack>
                       <div>
                         {/* 選択されたタグを表示する */}
-                        {selectedTags.map((selectedTag) => (
-                          <Chip
-                            key={selectedTag.tag}
-                            label={
-                              <span className="inline-flex items-center gap-2 font-bold">
-                                <span>{selectedTag.tag}</span>
-                                <span className="text-[1.1em] font-semibold">
-                                  {selectedTag.count}
+                        {selectedTags.map((selectedTag) => {
+                          const index = tags.findIndex((tag) => tag === selectedTag.tag)
+
+                          return (
+                            <Chip
+                              key={selectedTag.tag}
+                              label={
+                                <span className="inline-flex items-center gap-2 font-bold">
+                                  <span>{selectedTag.tag}</span>
+                                  <span className="text-[1.1em] font-semibold">
+                                    {selectedTag.count}
+                                  </span>
                                 </span>
-                              </span>
-                            }
-                            sx={{ mr: 1 }}
-                          />
-                        ))}
+                              }
+                              sx={{ mr: 1 }}
+                              style={{ backgroundColor: TAG_COLORS[index] }}
+                            />
+                          )
+                        })}
                       </div>
                       <div className="flex flex-wrap">
                         {/* その他のタグを表示する */}
                         <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
-                          {unselectedTags.map((unselectedTag) => (
-                            <div key={unselectedTag.tag} className="flex items-center gap-[6px]">
-                              <div className="text-sm">{unselectedTag.tag}</div>
-                              <div className="m-0.5 flex h-[23px] w-[23px]  items-center justify-center rounded-full bg-[#EBEBEB] p-1 text-xs font-bold text-gray-600">
-                                {unselectedTag.count}
+                          {unselectedTags.map((unselectedTag) => {
+                            return (
+                              <div key={unselectedTag.tag} className="flex items-center gap-[6px]">
+                                <div className="text-sm">{unselectedTag.tag}</div>
+                                <div className="m-0.5 flex h-[23px] w-[23px]  items-center justify-center rounded-full bg-[#EBEBEB] p-1 text-xs font-bold text-gray-600">
+                                  {unselectedTag.count}
+                                </div>
                               </div>
-                            </div>
-                          ))}
+                            )
+                          })}
                         </div>
                       </div>
                       <div
