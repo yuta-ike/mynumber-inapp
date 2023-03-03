@@ -7,6 +7,7 @@ import { ThemeProvider } from "@emotion/react"
 import TopBar from "@/components/layouts/TopBar"
 import { bottomNavBarHeight } from "@/consts/layouts"
 import { theme } from "@/consts/theme"
+import { dateStringToJapaneseFormat } from "@/lib/date/dateStringToJapaneseFormat"
 
 const AddDiary: React.FC = () => {
   const router = useRouter()
@@ -35,7 +36,9 @@ const AddDiary: React.FC = () => {
       <TopBar>
         <div className="flex w-full items-center justify-between px-1">
           <ArrowLeft onClick={() => router.back()} />
-          <h1 className="my-5 text-center text-lg font-bold">3/3(土)</h1>
+          <h1 className="my-5 text-center text-lg font-bold">
+            {dateStringToJapaneseFormat(Date.now())}
+          </h1>
           <Cancel onClick={() => router.push("/")} />
         </div>
       </TopBar>
