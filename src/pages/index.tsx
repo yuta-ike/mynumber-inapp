@@ -246,7 +246,7 @@ const Index: NextPage = () => {
                   <Stack direction="row" alignItems="center" justifyContent="space-between">
                     <div className="flex w-full flex-col p-0">
                       <p className="my-0 text-left text-sm font-bold leading-normal">
-                        自治体の情報があなたの役にたつかもしれません
+                        自治体の情報があなたの役に立つかもしれません
                       </p>
                       <a
                         target="_blank"
