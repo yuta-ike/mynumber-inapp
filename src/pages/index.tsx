@@ -5,7 +5,7 @@ import format from "date-fns/format"
 import { useCallback, useEffect, useMemo, useState } from "react"
 import { Stack } from "@mui/system"
 import { NavArrowRight } from "iconoir-react"
-import { AvatarGroup, Button } from "@mui/material"
+import { AvatarGroup, Button, Card, CardContent } from "@mui/material"
 import Image from "next/image"
 import { useRouter } from "next/router"
 import { OpenInNew } from "@mui/icons-material"
@@ -25,6 +25,7 @@ import AiLoading from "@/components/AiLoading"
 import { delayed } from "@/utils/delayed"
 import { ICONS } from "@/consts/icons"
 import { Calendar } from "@/types/calendar"
+import Municipality from "@/images/municipality.png"
 
 import type { NextPage } from "next"
 
@@ -264,6 +265,94 @@ const Index: NextPage = () => {
               あなたの日記を元に分析しました。
             </AIWhisperInlineButton>
           ) : null}
+        </div>
+        <div className="m-6 border-r-[16px]">
+          <Card elevation={0}>
+            <CardContent>
+              <h2>じぶんの１週間</h2>
+              <Stack direction="row" style={{ borderRadius: "50%", width: "100%" }}>
+                <div
+                  style={{
+                    width: "65%",
+                    backgroundColor: "#7DAA88",
+                    height: "20px",
+                    borderRadius: "20px 0 0 20px",
+                  }}
+                />
+
+                <div style={{ width: "20%", height: "20px", backgroundColor: "#9BB0F9" }}></div>
+                <div
+                  style={{
+                    width: "15%",
+                    backgroundColor: "#F48F82",
+                    height: "20px",
+                    borderRadius: "0 20px 20px 0",
+                  }}
+                ></div>
+              </Stack>
+              <Stack direction="row" className="mt-3" spacing={1}>
+                <Stack direction="row" className="text-sm" alignItems="center" gap={0.5}>
+                  <Stack
+                    style={{
+                      width: " 10px",
+                      height: "10px",
+                      backgroundColor: "#7DAA88",
+                    }}
+                  ></Stack>
+                  食品
+                </Stack>
+                <Stack direction="row" alignItems="center" className="text-sm" gap={0.5}>
+                  <Stack
+                    style={{
+                      width: "10px",
+                      height: "10px",
+                      backgroundColor: "#9BB0F9",
+                    }}
+                  ></Stack>
+                  負債
+                </Stack>
+                <Stack direction="row" alignItems="center" className="text-sm" gap={0.5}>
+                  <Stack
+                    style={{
+                      width: "10px",
+                      height: "10px",
+                      backgroundColor: "#F48F82",
+                    }}
+                  ></Stack>
+                  ベビー用品
+                </Stack>
+              </Stack>
+            </CardContent>
+          </Card>
+        </div>
+        <div className="m-6  border-r-[16px]">
+          <a href="https://miya-pass.jp/" target="_blank" className="no-underline">
+            <Card elevation={0}>
+              <CardContent className="border-none">
+                <Stack direction="row" justifyItems="space-between" alignItems="center">
+                  <Stack>
+                    <div className="w-[95%] text-xl">ヘルスケアと連携</div>
+                    <p>連携すると、お得な情報やクーポンを獲得することができます！</p>
+                  </Stack>
+                  <NavArrowRight />
+                </Stack>
+              </CardContent>
+            </Card>
+          </a>
+        </div>
+        <div>
+          <div className="relative m-6 h-[140px]">
+            <a href="https://miya-pass.jp/" target="_blank">
+              <Image
+                src={Municipality}
+                alt="自治体の子育て支援"
+                layout="fill"
+                objectFit="contain"
+                priority
+                placeholder="blur"
+              />
+            </a>
+          </div>
         </div>
         {/* <div className="relative mt-4">
           <div className="absolute top-[72px] h-[6px] w-full bg-[#F9B1A4]" />
