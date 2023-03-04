@@ -15,14 +15,16 @@ const MaterilHandbook: React.FC = () => {
       </TopBar>
       <main style={{ marginBottom: bottomNavBarHeight }} className="pb-4">
         <div className="relative m-4 h-[140px]">
-          <Image
-            src={Municipality}
-            alt="自治体の子育て支援"
-            layout="fill"
-            objectFit="contain"
-            priority
-            placeholder="blur"
-          />
+          <a href="https://miya-pass.jp/" target="_blank">
+            <Image
+              src={Municipality}
+              alt="自治体の子育て支援"
+              layout="fill"
+              objectFit="contain"
+              priority
+              placeholder="blur"
+            />
+          </a>
         </div>
         <div className="m-4">
           <h2 className="-mb-2 text-xl">お母さんの基本情報</h2>
