@@ -1,4 +1,3 @@
-import { Avatar } from "@mui/material"
 import Image from "next/image"
 
 import { theme } from "@/consts/theme"
@@ -29,16 +28,14 @@ const AIWhisperInlineButton: React.FC<AIWhisperProps> = ({ children, onClick, un
           color: theme.palette.primary["500"],
         }}
       >
-        <div className="w-[17%]">
-          <Avatar>
-            <Image src={AI} alt="AI" />
-          </Avatar>
+        <div className="h-10 w-10 shrink-0">
+          <Image src={AI} alt="AI" width={40} height={40} />
         </div>
-        <p>{children}</p>
+        <p className="m-0 ml-2">{children}</p>
       </div>
       {underContent && (
         <div
-          className="mt-2 pt-5 text-left"
+          className="mt-4 pt-4 text-left"
           style={{ borderTop: `1px solid ${theme.palette.primary["500"]}` }}
         >
           {underContent}
