@@ -8,11 +8,7 @@ import { ThemeProvider } from "@emotion/react"
 import { theme } from "@/consts/theme"
 import axios from "@/lib/axios"
 import { usePersonalInfo } from "@/lib/pocketSign/PersonalInfoProvider"
-import Icon1 from "@/images/icon_1.png"
-import Icon2 from "@/images/icon_2.png"
-import Icon3 from "@/images/icon_3.png"
-
-const ICONS = [Icon1, Icon2, Icon3]
+import { ICONS } from "@/consts/icons"
 
 const SignUp = () => {
   const router = useRouter()
@@ -78,13 +74,16 @@ const SignUp = () => {
           <label htmlFor={nicknameId} className="mt-10 flex items-center gap-2">
             アイコンを選択してください <small style={{ color: "red" }}>※</small>
           </label>
-          <div className="mt-4 flex w-full">
+          <div className="-mx-5 mt-4 flex w-[calc(100%+40px)] space-x-1 overflow-x-scroll px-5">
             {ICONS.map((icon, i) => (
               <button
                 type="button"
                 key={i}
-                onClick={() => setIconId(i)}
-                className="rounded-full border-none bg-transparent"
+                onClick={() => setIconId(i + 1)}
+                className={classNames(
+                  "flex appearance-none rounded-full border-4 border-solid bg-transparent p-0",
+                  i + 1 === iconId ? "border-primary" : "border-transparent",
+                )}
               >
                 <Image
                   src={icon}
@@ -92,8 +91,7 @@ const SignUp = () => {
                   height={64}
                   alt=""
                   className={classNames(
-                    "rounded-full border-2 border-solid bg-white shadow",
-                    i === iconId ? "border-primary" : "border-white",
+                    "rounded-full border-2 border-solid border-transparent bg-white shadow",
                   )}
                 />
               </button>
@@ -137,8 +135,9 @@ const SignUp = () => {
               },
               borderRadius: "8px",
             }}
-            className="mt-10"
+            className="mt-10 disabled:!text-white disabled:opacity-70"
             fullWidth
+            disabled={input === "" || iconId == null}
           >
             決定する
           </Button>
