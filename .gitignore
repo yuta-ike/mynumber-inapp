@@ -38,3 +38,5 @@ next-env.d.ts
 # pocketsign
 QRCODE.png
 .env
+
+pocketsign-in-app-service-sdk-0.2.0.tgz
